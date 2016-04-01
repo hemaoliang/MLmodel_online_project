@@ -1,0 +1,1 @@
+/usr/bin/c++       CMakeFiles/TutorialServer.dir/CppServer.cpp.o  -o TutorialServer -rdynamic libtutorialgencpp.a -lthrift 

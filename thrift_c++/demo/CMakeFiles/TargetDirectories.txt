@@ -1,0 +1,3 @@
+/home/spongebob/MLmodel_online_project/thrift_c++/demo/CMakeFiles/TutorialClient.dir
+/home/spongebob/MLmodel_online_project/thrift_c++/demo/CMakeFiles/TutorialServer.dir
+/home/spongebob/MLmodel_online_project/thrift_c++/demo/CMakeFiles/tutorialgencpp.dir

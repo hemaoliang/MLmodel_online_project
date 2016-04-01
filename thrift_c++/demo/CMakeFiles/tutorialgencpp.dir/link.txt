@@ -1,0 +1,2 @@
+/usr/bin/ar cr libtutorialgencpp.a  CMakeFiles/tutorialgencpp.dir/gen-cpp/Calculator.cpp.o CMakeFiles/tutorialgencpp.dir/gen-cpp/SharedService.cpp.o CMakeFiles/tutorialgencpp.dir/gen-cpp/shared_constants.cpp.o CMakeFiles/tutorialgencpp.dir/gen-cpp/shared_types.cpp.o CMakeFiles/tutorialgencpp.dir/gen-cpp/tutorial_constants.cpp.o CMakeFiles/tutorialgencpp.dir/gen-cpp/tutorial_types.cpp.o
+/usr/bin/ranlib libtutorialgencpp.a
