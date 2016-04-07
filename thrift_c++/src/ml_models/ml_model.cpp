@@ -23,6 +23,8 @@ LibSvm_Model::LibSvm_Model(const char *model_file_name)
 
 LibSvm_Model::~LibSvm_Model()
 {
+	free(labels);
+	svm_free_and_destroy_model(&model)
 }
 
 
@@ -95,4 +97,5 @@ double LibSvm_Model::predict(const char *line, double *prob_estimates)
 	else
 		predict_label = svm_predict(model,x);	
 	
+	free(x)
 }
