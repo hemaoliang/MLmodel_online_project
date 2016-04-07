@@ -6,6 +6,8 @@
 #include "svm.h"
 #include "eval.h"
 
+using namespace libsvm;
+
 int print_null(const char *s,...) {return 0;}
 
 static int (*info)(const char *fmt,...) = &printf;
@@ -13,7 +15,10 @@ static int (*info)(const char *fmt,...) = &printf;
 struct svm_node *x;
 int max_nr_attr = 64;
 
+namespace libsvm {
 struct svm_model* model;
+}
+
 int predict_probability=0;
 
 static char *line = NULL;
@@ -37,11 +42,6 @@ static char* readline(FILE *input)
 	return line;
 }
 
-void exit_input_error(int line_num)
-{
-	fprintf(stderr,"Wrong input format at line %d\n", line_num);
-	exit(1);
-}
 
 void predict(FILE *input, FILE *output)
 {

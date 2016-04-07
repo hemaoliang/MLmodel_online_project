@@ -4,6 +4,10 @@
 #include <stdio.h>
 #include "svm.h"
 
+namespace libsvm {
+
+//using namespace libsvm;
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -21,5 +25,6 @@ void exit_input_error(int line_num);
 }
 #endif
 
+} // namespace libsvm
 
 #endif

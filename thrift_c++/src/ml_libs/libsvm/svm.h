@@ -3,6 +3,8 @@
 
 #define LIBSVM_VERSION 320
 
+namespace libsvm { 
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -100,5 +102,7 @@ void svm_set_print_string_function(void (*print_func)(const char *));
 #ifdef __cplusplus
 }
 #endif
+
+} // namespace libsvm
 
 #endif /* _LIBSVM_H */

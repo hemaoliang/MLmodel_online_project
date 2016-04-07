@@ -6,6 +6,10 @@
 #include "svm.h"
 #include "eval.h"
 
+namespace libsvm {
+
+using namespace libsvm;
+
 #define Malloc(type,n) (type *)malloc((n)*sizeof(type))
 
 typedef std::vector<double> dvec_t;
@@ -27,6 +31,11 @@ double (*validation_function)(const dvec_t&, const ivec_t&) = auc;
 static char *line = NULL;
 static int max_line_len;
 
+void exit_input_error(int line_num)                                                                                                                           
+{       
+	fprintf(stderr,"Wrong input format at line %d\n", line_num);
+	exit(1);                                                                                                                                              
+}  
 
 static char* readline(FILE *input)
 {
@@ -398,3 +407,5 @@ void binary_class_predict(FILE *input, FILE *output){
 	free(labels);
 	free(x);
 }
+
+} // namespace libsvm

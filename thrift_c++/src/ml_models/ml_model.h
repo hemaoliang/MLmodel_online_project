@@ -15,7 +15,8 @@ class ML_Model
 public:
 	ML_Model(const char *model_file_name);
 	~ML_Model();
-	double predict(const svm_node *x);
+	//double predict(const libsvm::svm_node *x, double *prob_estimates);
+	double predict(const char *line, double *prob_estimates);
 	const char * model_type;
 };
 
@@ -23,9 +24,15 @@ class LibSvm_Model: public ML_Model
 {
 public:
 	LibSvm_Model(const char *model_file_name);
-	~ML_Model();
-	double predict(const svm_node *x);
+	~LibSvm_Model();
+	//double predict(const libsvm::svm_node *x, double *prob_estimates);
+	double predict(const char *line, double *prob_estimates);
 	const char * model_type = "libsvm";
 private:
-	struct svm_model *model;
+	struct libsvm::svm_model *model;
+
+	int *labels;
+	int predict_probability = 0;
+	int svm_type = 0;
+	int nr_class = 2;
 };
