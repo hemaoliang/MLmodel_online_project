@@ -83,6 +83,9 @@ int main(int argc, char **argv)
 	
 	max_line_len = 1024;
         line = (char *)malloc(max_line_len*sizeof(char));
+	
+	libsvm_model = new LibSvm_Model("/home/spongebob/MLmodel_online_project/thrift_c++/data");
+	delete libsvm_model;
 
 }
 
