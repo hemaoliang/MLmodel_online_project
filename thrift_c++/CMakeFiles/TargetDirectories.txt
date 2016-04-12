@@ -1,2 +1,0 @@
-/home/spongebob/MLmodel_online_project/thrift_c++/CMakeFiles/libsvmtest.dir
-/home/spongebob/MLmodel_online_project/thrift_c++/CMakeFiles/mlmodel.dir

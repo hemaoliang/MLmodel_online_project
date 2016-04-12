@@ -1,2 +1,0 @@
-/usr/bin/ar cr lib/libmlmodel.a  CMakeFiles/mlmodel.dir/src/ml_libs/libsvm/svm.o CMakeFiles/mlmodel.dir/src/ml_libs/libsvm/eval.o CMakeFiles/mlmodel.dir/src/ml_models/mlmodel.o
-/usr/bin/ranlib lib/libmlmodel.a
