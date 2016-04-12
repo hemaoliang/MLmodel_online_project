@@ -1,0 +1,2 @@
+/usr/bin/ar cr liblibsvmcpp.a  CMakeFiles/libsvmcpp.dir/src/ml_libs/libsvm/svm.o CMakeFiles/libsvmcpp.dir/src/ml_libs/libsvm/eval.o
+/usr/bin/ranlib liblibsvmcpp.a

@@ -13,32 +13,41 @@ LibSvm_Model::LibSvm_Model(const char *model_file_name)
 		exit(1);
 	}
 
-	predict_probability = libsvm::svm_check_probability_model(model)
-	svm_type=libsvm::svm_get_svm_type(model);
-	nr_class=libsvm::svm_get_nr_class(model);
+	model_type = "libsvm";
+	predict_probability = libsvm::svm_check_probability_model(model);
+	svm_type = libsvm::svm_get_svm_type(model);
+	nr_class = libsvm::svm_get_nr_class(model);
 	
-	labels=(int *) malloc(nr_class*sizeof(int));
+	labels = (int *) malloc(nr_class*sizeof(int));
 	libsvm::svm_get_labels(model,labels);
 }
 
 LibSvm_Model::~LibSvm_Model()
 {
 	free(labels);
-	libsvm::svm_free_and_destroy_model(&model)
+	libsvm::svm_free_and_destroy_model(&model);
 }
 
+int LibSvm_Model::get_nr_class()
+{
+	return nr_class;
+}
 
+int LibSvm_Model::get_predict_probability()
+{
+	return predict_probability;
+}
 
 //LibSvm_Model::predict(const svm_node *x, double *prob_estimates)
-double LibSvm_Model::predict(const char *line, double *prob_estimates)
+double LibSvm_Model::predict(char *line, double *prob_estimates)
 {
-	struct svm_node *x;
+	struct libsvm::svm_node *x;
 	int max_nr_attr = 64;
-	x = (struct svm_node *) malloc(max_nr_attr*sizeof(struct svm_node));
+	x = (struct libsvm::svm_node *) malloc(max_nr_attr*sizeof(struct libsvm::svm_node));
 
 	//int svm_type=libsvm::svm_get_svm_type(model);
 	//int nr_class=libsvm::svm_get_nr_class(model);
-	double *prob_estimates=NULL;	
+	//double *prob_estimates=NULL;	
 
 	//if (svm_type==NU_SVR || svm_type==EPSILON_SVR)
 	//	printf("Prob. model for test data: target value = predicted value + z,\nz: Laplace distribution e^(-|z|/sigma)/(2sigma),sigma=%g\n",

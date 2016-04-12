@@ -84,8 +84,22 @@ int main(int argc, char **argv)
 	max_line_len = 1024;
         line = (char *)malloc(max_line_len*sizeof(char));
 	
-	libsvm_model = new LibSvm_Model("/home/spongebob/MLmodel_online_project/thrift_c++/data");
+	LibSvm_Model *libsvm_model = new LibSvm_Model("/home/spongebob/MLmodel_online_project/thrift_c++/data");
+
+	double *prob_estimates=NULL;
+	int nr_class = libsvm_model->get_nr_class();
+	predict_probability = libsvm_model->get_predict_probability();
+	if (predict_probability) {
+		prob_estimates = (double *) malloc(nr_class*sizeof(double));
+	}
+
+	while(readline(input) != NULL){
+		libsvm_model->predict(line,prob_estimates);	
+
+	}
+
 	delete libsvm_model;
+	free(line);
 
 }
 
