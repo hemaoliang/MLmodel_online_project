@@ -38,6 +38,11 @@ int LibSvm_Model::get_predict_probability()
 	return predict_probability;
 }
 
+int * LibSvm_Model::get_labels()
+{
+	return labels;
+}
+
 //LibSvm_Model::predict(const svm_node *x, double *prob_estimates)
 double LibSvm_Model::predict(char *line, double *prob_estimates)
 {

@@ -29,6 +29,7 @@ public:
 	double predict(char *line, double *prob_estimates);
 	int get_nr_class();
 	int get_predict_probability();
+	int * get_labels();
 
 private:
 	struct libsvm::svm_model* model;

@@ -43,7 +43,7 @@ static char* readline(FILE *input)
 int main(int argc, char **argv)
 {
 	FILE *input, *output;
-	int i;
+	int i,j;
 	int predict_probability=0;
 	for(i=1;i<argc;i++)
 	{
@@ -66,6 +66,11 @@ int main(int argc, char **argv)
 	
 	if(i>=argc-2)
 		exit_with_help();
+
+	//testing for 1000 times for watching whether memory leak
+	for(int k=1; k<=1000; k++)
+	{
+	printf("testing for %d times.\n" ,k);	
 	
 	input = fopen(argv[i],"r");
 	if(input == NULL)
@@ -84,22 +89,47 @@ int main(int argc, char **argv)
 	max_line_len = 1024;
         line = (char *)malloc(max_line_len*sizeof(char));
 	
-	LibSvm_Model *libsvm_model = new LibSvm_Model("/home/spongebob/MLmodel_online_project/thrift_c++/data");
+	//LibSvm_Model *libsvm_model = new LibSvm_Model("/home/spongebob/MLmodel_online_project/thrift_c++/data/dianping_qqweixin_comm_feature_scale.model");
+	LibSvm_Model *libsvm_model = new LibSvm_Model(argv[i+1]);
 
-	double *prob_estimates=NULL;
+	double *prob_estimates = NULL;
 	int nr_class = libsvm_model->get_nr_class();
+	double predict_label;
+
 	predict_probability = libsvm_model->get_predict_probability();
-	if (predict_probability) {
+	if(predict_probability) 
+	{
 		prob_estimates = (double *) malloc(nr_class*sizeof(double));
 	}
 
+	//write header
+	int * labels = libsvm_model->get_labels();
+	fprintf(output,"labels");
+	for(j=0;j<nr_class;j++)  
+		fprintf(output," %d",labels[j]);
+	fprintf(output,"\n");
+	
 	while(readline(input) != NULL){
-		libsvm_model->predict(line,prob_estimates);	
+		predict_label = libsvm_model->predict(line,prob_estimates);
+		fprintf(output,"%g",predict_label);
+		if(predict_probability)
+		{
+			for(j=0;j<nr_class;j++)
+				fprintf(output," %g",prob_estimates[j]);
+		}
+		fprintf(output,"\n"); 
 
 	}
 
 	delete libsvm_model;
 	free(line);
+	if(prob_estimates != NULL)
+		free(prob_estimates);
+	fclose(input);
+	fclose(output);
 
+	}//end for(int k=1: k<=1000; k++) 
+
+	return 0;
 }
 
