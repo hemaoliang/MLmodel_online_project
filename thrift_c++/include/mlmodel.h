@@ -18,12 +18,13 @@ public:
 	//double predict(const libsvm::svm_node *x, double *prob_estimates);
 	virtual double predict(char *line, double *prob_estimates){ }
 	const char *model_type;
+	const char *model_name;
 };
 
 class LibSvm_Model: public ML_Model
 {
 public:
-	LibSvm_Model(const char *model_file_name);
+	LibSvm_Model(const char *model_file_name, const char *model_name_unique);
 	~LibSvm_Model();
 	//double predict(const libsvm::svm_node *x, double *prob_estimates);
 	double predict(char *line, double *prob_estimates);

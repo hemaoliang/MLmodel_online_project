@@ -90,7 +90,7 @@ int main(int argc, char **argv)
         line = (char *)malloc(max_line_len*sizeof(char));
 	
 	//LibSvm_Model *libsvm_model = new LibSvm_Model("/home/spongebob/MLmodel_online_project/thrift_c++/data/dianping_qqweixin_comm_feature_scale.model");
-	LibSvm_Model *libsvm_model = new LibSvm_Model(argv[i+1]);
+	LibSvm_Model *libsvm_model = new LibSvm_Model(argv[i+1], "test_libsvm");
 
 	double *prob_estimates = NULL;
 	int nr_class = libsvm_model->get_nr_class();

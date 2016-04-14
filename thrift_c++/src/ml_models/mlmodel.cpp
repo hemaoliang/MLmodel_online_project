@@ -5,7 +5,7 @@
 #include <errno.h>
 #include "mlmodel.h"
 
-LibSvm_Model::LibSvm_Model(const char *model_file_name)
+LibSvm_Model::LibSvm_Model(const char *model_file_name, const char *model_name_unique)
 {
 	model = libsvm::svm_load_model(model_file_name);
 	if(model==0) {
@@ -14,6 +14,7 @@ LibSvm_Model::LibSvm_Model(const char *model_file_name)
 	}
 
 	model_type = "libsvm";
+	model_name = model_name_unique; 
 	predict_probability = libsvm::svm_check_probability_model(model);
 	svm_type = libsvm::svm_get_svm_type(model);
 	nr_class = libsvm::svm_get_nr_class(model);
