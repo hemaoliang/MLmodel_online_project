@@ -6,7 +6,7 @@
  */
 #include "mlmodel_online_project_constants.h"
 
-namespace modelpro {
+namespace mlmodelserver {
 
 const mlmodel_online_projectConstants g_mlmodel_online_project_constants;
 

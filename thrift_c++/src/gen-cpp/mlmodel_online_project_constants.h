@@ -9,7 +9,7 @@
 
 #include "mlmodel_online_project_types.h"
 
-namespace modelpro {
+namespace mlmodelserver {
 
 class mlmodel_online_projectConstants {
  public:

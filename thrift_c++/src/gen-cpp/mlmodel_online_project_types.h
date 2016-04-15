@@ -17,7 +17,7 @@
 #include <thrift/cxxfunctional.h>
 
 
-namespace modelpro {
+namespace mlmodelserver {
 
 class returnType;
 

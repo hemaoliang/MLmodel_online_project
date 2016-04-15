@@ -14,7 +14,7 @@ using namespace ::apache::thrift::server;
 
 using boost::shared_ptr;
 
-using namespace  ::modelpro;
+using namespace  ::mlmodelserver;
 
 class MLOlineServiceHandler : virtual public MLOlineServiceIf {
  public:
@@ -22,12 +22,12 @@ class MLOlineServiceHandler : virtual public MLOlineServiceIf {
     // Your initialization goes here
   }
 
-  void getLabel(std::vector<int32_t> & _return, const std::string& modelName) {
+  void getLabel(std::vector<int32_t> & _return, const int32_t clientid, const std::string& modelName) {
     // Your implementation goes here
     printf("getLabel\n");
   }
 
-  void modelPredict(returnType& _return, const std::string& strFeature) {
+  void modelPredict(returnType& _return, const int32_t clientid, const std::string& modelName, const std::string& strFeature) {
     // Your implementation goes here
     printf("modelPredict\n");
   }

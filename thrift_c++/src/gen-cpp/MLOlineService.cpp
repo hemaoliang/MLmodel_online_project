@@ -6,7 +6,7 @@
  */
 #include "MLOlineService.h"
 
-namespace modelpro {
+namespace mlmodelserver {
 
 
 MLOlineService_getLabel_args::~MLOlineService_getLabel_args() throw() {
@@ -35,6 +35,14 @@ uint32_t MLOlineService_getLabel_args::read(::apache::thrift::protocol::TProtoco
     switch (fid)
     {
       case 1:
+        if (ftype == ::apache::thrift::protocol::T_I32) {
+          xfer += iprot->readI32(this->clientid);
+          this->__isset.clientid = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      case 2:
         if (ftype == ::apache::thrift::protocol::T_STRING) {
           xfer += iprot->readString(this->modelName);
           this->__isset.modelName = true;
@@ -59,7 +67,11 @@ uint32_t MLOlineService_getLabel_args::write(::apache::thrift::protocol::TProtoc
   apache::thrift::protocol::TOutputRecursionTracker tracker(*oprot);
   xfer += oprot->writeStructBegin("MLOlineService_getLabel_args");
 
-  xfer += oprot->writeFieldBegin("modelName", ::apache::thrift::protocol::T_STRING, 1);
+  xfer += oprot->writeFieldBegin("clientid", ::apache::thrift::protocol::T_I32, 1);
+  xfer += oprot->writeI32(this->clientid);
+  xfer += oprot->writeFieldEnd();
+
+  xfer += oprot->writeFieldBegin("modelName", ::apache::thrift::protocol::T_STRING, 2);
   xfer += oprot->writeString(this->modelName);
   xfer += oprot->writeFieldEnd();
 
@@ -78,7 +90,11 @@ uint32_t MLOlineService_getLabel_pargs::write(::apache::thrift::protocol::TProto
   apache::thrift::protocol::TOutputRecursionTracker tracker(*oprot);
   xfer += oprot->writeStructBegin("MLOlineService_getLabel_pargs");
 
-  xfer += oprot->writeFieldBegin("modelName", ::apache::thrift::protocol::T_STRING, 1);
+  xfer += oprot->writeFieldBegin("clientid", ::apache::thrift::protocol::T_I32, 1);
+  xfer += oprot->writeI32((*(this->clientid)));
+  xfer += oprot->writeFieldEnd();
+
+  xfer += oprot->writeFieldBegin("modelName", ::apache::thrift::protocol::T_STRING, 2);
   xfer += oprot->writeString((*(this->modelName)));
   xfer += oprot->writeFieldEnd();
 
@@ -254,6 +270,22 @@ uint32_t MLOlineService_modelPredict_args::read(::apache::thrift::protocol::TPro
     switch (fid)
     {
       case 1:
+        if (ftype == ::apache::thrift::protocol::T_I32) {
+          xfer += iprot->readI32(this->clientid);
+          this->__isset.clientid = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      case 2:
+        if (ftype == ::apache::thrift::protocol::T_STRING) {
+          xfer += iprot->readString(this->modelName);
+          this->__isset.modelName = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      case 3:
         if (ftype == ::apache::thrift::protocol::T_STRING) {
           xfer += iprot->readString(this->strFeature);
           this->__isset.strFeature = true;
@@ -278,7 +310,15 @@ uint32_t MLOlineService_modelPredict_args::write(::apache::thrift::protocol::TPr
   apache::thrift::protocol::TOutputRecursionTracker tracker(*oprot);
   xfer += oprot->writeStructBegin("MLOlineService_modelPredict_args");
 
-  xfer += oprot->writeFieldBegin("strFeature", ::apache::thrift::protocol::T_STRING, 1);
+  xfer += oprot->writeFieldBegin("clientid", ::apache::thrift::protocol::T_I32, 1);
+  xfer += oprot->writeI32(this->clientid);
+  xfer += oprot->writeFieldEnd();
+
+  xfer += oprot->writeFieldBegin("modelName", ::apache::thrift::protocol::T_STRING, 2);
+  xfer += oprot->writeString(this->modelName);
+  xfer += oprot->writeFieldEnd();
+
+  xfer += oprot->writeFieldBegin("strFeature", ::apache::thrift::protocol::T_STRING, 3);
   xfer += oprot->writeString(this->strFeature);
   xfer += oprot->writeFieldEnd();
 
@@ -297,7 +337,15 @@ uint32_t MLOlineService_modelPredict_pargs::write(::apache::thrift::protocol::TP
   apache::thrift::protocol::TOutputRecursionTracker tracker(*oprot);
   xfer += oprot->writeStructBegin("MLOlineService_modelPredict_pargs");
 
-  xfer += oprot->writeFieldBegin("strFeature", ::apache::thrift::protocol::T_STRING, 1);
+  xfer += oprot->writeFieldBegin("clientid", ::apache::thrift::protocol::T_I32, 1);
+  xfer += oprot->writeI32((*(this->clientid)));
+  xfer += oprot->writeFieldEnd();
+
+  xfer += oprot->writeFieldBegin("modelName", ::apache::thrift::protocol::T_STRING, 2);
+  xfer += oprot->writeString((*(this->modelName)));
+  xfer += oprot->writeFieldEnd();
+
+  xfer += oprot->writeFieldBegin("strFeature", ::apache::thrift::protocol::T_STRING, 3);
   xfer += oprot->writeString((*(this->strFeature)));
   xfer += oprot->writeFieldEnd();
 
@@ -414,18 +462,19 @@ uint32_t MLOlineService_modelPredict_presult::read(::apache::thrift::protocol::T
   return xfer;
 }
 
-void MLOlineServiceClient::getLabel(std::vector<int32_t> & _return, const std::string& modelName)
+void MLOlineServiceClient::getLabel(std::vector<int32_t> & _return, const int32_t clientid, const std::string& modelName)
 {
-  send_getLabel(modelName);
+  send_getLabel(clientid, modelName);
   recv_getLabel(_return);
 }
 
-void MLOlineServiceClient::send_getLabel(const std::string& modelName)
+void MLOlineServiceClient::send_getLabel(const int32_t clientid, const std::string& modelName)
 {
   int32_t cseqid = 0;
   oprot_->writeMessageBegin("getLabel", ::apache::thrift::protocol::T_CALL, cseqid);
 
   MLOlineService_getLabel_pargs args;
+  args.clientid = &clientid;
   args.modelName = &modelName;
   args.write(oprot_);
 
@@ -472,18 +521,20 @@ void MLOlineServiceClient::recv_getLabel(std::vector<int32_t> & _return)
   throw ::apache::thrift::TApplicationException(::apache::thrift::TApplicationException::MISSING_RESULT, "getLabel failed: unknown result");
 }
 
-void MLOlineServiceClient::modelPredict(returnType& _return, const std::string& strFeature)
+void MLOlineServiceClient::modelPredict(returnType& _return, const int32_t clientid, const std::string& modelName, const std::string& strFeature)
 {
-  send_modelPredict(strFeature);
+  send_modelPredict(clientid, modelName, strFeature);
   recv_modelPredict(_return);
 }
 
-void MLOlineServiceClient::send_modelPredict(const std::string& strFeature)
+void MLOlineServiceClient::send_modelPredict(const int32_t clientid, const std::string& modelName, const std::string& strFeature)
 {
   int32_t cseqid = 0;
   oprot_->writeMessageBegin("modelPredict", ::apache::thrift::protocol::T_CALL, cseqid);
 
   MLOlineService_modelPredict_pargs args;
+  args.clientid = &clientid;
+  args.modelName = &modelName;
   args.strFeature = &strFeature;
   args.write(oprot_);
 
@@ -572,7 +623,7 @@ void MLOlineServiceProcessor::process_getLabel(int32_t seqid, ::apache::thrift::
 
   MLOlineService_getLabel_result result;
   try {
-    iface_->getLabel(result.success, args.modelName);
+    iface_->getLabel(result.success, args.clientid, args.modelName);
     result.__isset.success = true;
   } catch (const std::exception& e) {
     if (this->eventHandler_.get() != NULL) {
@@ -626,7 +677,7 @@ void MLOlineServiceProcessor::process_modelPredict(int32_t seqid, ::apache::thri
 
   MLOlineService_modelPredict_result result;
   try {
-    iface_->modelPredict(result.success, args.strFeature);
+    iface_->modelPredict(result.success, args.clientid, args.modelName, args.strFeature);
     result.__isset.success = true;
   } catch (const std::exception& e) {
     if (this->eventHandler_.get() != NULL) {
@@ -664,19 +715,20 @@ void MLOlineServiceProcessor::process_modelPredict(int32_t seqid, ::apache::thri
   return processor;
 }
 
-void MLOlineServiceConcurrentClient::getLabel(std::vector<int32_t> & _return, const std::string& modelName)
+void MLOlineServiceConcurrentClient::getLabel(std::vector<int32_t> & _return, const int32_t clientid, const std::string& modelName)
 {
-  int32_t seqid = send_getLabel(modelName);
+  int32_t seqid = send_getLabel(clientid, modelName);
   recv_getLabel(_return, seqid);
 }
 
-int32_t MLOlineServiceConcurrentClient::send_getLabel(const std::string& modelName)
+int32_t MLOlineServiceConcurrentClient::send_getLabel(const int32_t clientid, const std::string& modelName)
 {
   int32_t cseqid = this->sync_.generateSeqId();
   ::apache::thrift::async::TConcurrentSendSentry sentry(&this->sync_);
   oprot_->writeMessageBegin("getLabel", ::apache::thrift::protocol::T_CALL, cseqid);
 
   MLOlineService_getLabel_pargs args;
+  args.clientid = &clientid;
   args.modelName = &modelName;
   args.write(oprot_);
 
@@ -748,19 +800,21 @@ void MLOlineServiceConcurrentClient::recv_getLabel(std::vector<int32_t> & _retur
   } // end while(true)
 }
 
-void MLOlineServiceConcurrentClient::modelPredict(returnType& _return, const std::string& strFeature)
+void MLOlineServiceConcurrentClient::modelPredict(returnType& _return, const int32_t clientid, const std::string& modelName, const std::string& strFeature)
 {
-  int32_t seqid = send_modelPredict(strFeature);
+  int32_t seqid = send_modelPredict(clientid, modelName, strFeature);
   recv_modelPredict(_return, seqid);
 }
 
-int32_t MLOlineServiceConcurrentClient::send_modelPredict(const std::string& strFeature)
+int32_t MLOlineServiceConcurrentClient::send_modelPredict(const int32_t clientid, const std::string& modelName, const std::string& strFeature)
 {
   int32_t cseqid = this->sync_.generateSeqId();
   ::apache::thrift::async::TConcurrentSendSentry sentry(&this->sync_);
   oprot_->writeMessageBegin("modelPredict", ::apache::thrift::protocol::T_CALL, cseqid);
 
   MLOlineService_modelPredict_pargs args;
+  args.clientid = &clientid;
+  args.modelName = &modelName;
   args.strFeature = &strFeature;
   args.write(oprot_);
 

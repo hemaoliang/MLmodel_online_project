@@ -11,7 +11,7 @@
 
 #include <thrift/TToString.h>
 
-namespace modelpro {
+namespace mlmodelserver {
 
 
 returnType::~returnType() throw() {

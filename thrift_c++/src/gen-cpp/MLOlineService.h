@@ -11,7 +11,7 @@
 #include <thrift/async/TConcurrentClientSyncInfo.h>
 #include "mlmodel_online_project_types.h"
 
-namespace modelpro {
+namespace mlmodelserver {
 
 #ifdef _WIN32
   #pragma warning( push )
@@ -21,8 +21,8 @@ namespace modelpro {
 class MLOlineServiceIf {
  public:
   virtual ~MLOlineServiceIf() {}
-  virtual void getLabel(std::vector<int32_t> & _return, const std::string& modelName) = 0;
-  virtual void modelPredict(returnType& _return, const std::string& strFeature) = 0;
+  virtual void getLabel(std::vector<int32_t> & _return, const int32_t clientid, const std::string& modelName) = 0;
+  virtual void modelPredict(returnType& _return, const int32_t clientid, const std::string& modelName, const std::string& strFeature) = 0;
 };
 
 class MLOlineServiceIfFactory {
@@ -52,16 +52,17 @@ class MLOlineServiceIfSingletonFactory : virtual public MLOlineServiceIfFactory 
 class MLOlineServiceNull : virtual public MLOlineServiceIf {
  public:
   virtual ~MLOlineServiceNull() {}
-  void getLabel(std::vector<int32_t> & /* _return */, const std::string& /* modelName */) {
+  void getLabel(std::vector<int32_t> & /* _return */, const int32_t /* clientid */, const std::string& /* modelName */) {
     return;
   }
-  void modelPredict(returnType& /* _return */, const std::string& /* strFeature */) {
+  void modelPredict(returnType& /* _return */, const int32_t /* clientid */, const std::string& /* modelName */, const std::string& /* strFeature */) {
     return;
   }
 };
 
 typedef struct _MLOlineService_getLabel_args__isset {
-  _MLOlineService_getLabel_args__isset() : modelName(false) {}
+  _MLOlineService_getLabel_args__isset() : clientid(false), modelName(false) {}
+  bool clientid :1;
   bool modelName :1;
 } _MLOlineService_getLabel_args__isset;
 
@@ -70,18 +71,23 @@ class MLOlineService_getLabel_args {
 
   MLOlineService_getLabel_args(const MLOlineService_getLabel_args&);
   MLOlineService_getLabel_args& operator=(const MLOlineService_getLabel_args&);
-  MLOlineService_getLabel_args() : modelName() {
+  MLOlineService_getLabel_args() : clientid(0), modelName() {
   }
 
   virtual ~MLOlineService_getLabel_args() throw();
+  int32_t clientid;
   std::string modelName;
 
   _MLOlineService_getLabel_args__isset __isset;
+
+  void __set_clientid(const int32_t val);
 
   void __set_modelName(const std::string& val);
 
   bool operator == (const MLOlineService_getLabel_args & rhs) const
   {
+    if (!(clientid == rhs.clientid))
+      return false;
     if (!(modelName == rhs.modelName))
       return false;
     return true;
@@ -103,6 +109,7 @@ class MLOlineService_getLabel_pargs {
 
 
   virtual ~MLOlineService_getLabel_pargs() throw();
+  const int32_t* clientid;
   const std::string* modelName;
 
   uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
@@ -165,7 +172,9 @@ class MLOlineService_getLabel_presult {
 };
 
 typedef struct _MLOlineService_modelPredict_args__isset {
-  _MLOlineService_modelPredict_args__isset() : strFeature(false) {}
+  _MLOlineService_modelPredict_args__isset() : clientid(false), modelName(false), strFeature(false) {}
+  bool clientid :1;
+  bool modelName :1;
   bool strFeature :1;
 } _MLOlineService_modelPredict_args__isset;
 
@@ -174,18 +183,28 @@ class MLOlineService_modelPredict_args {
 
   MLOlineService_modelPredict_args(const MLOlineService_modelPredict_args&);
   MLOlineService_modelPredict_args& operator=(const MLOlineService_modelPredict_args&);
-  MLOlineService_modelPredict_args() : strFeature() {
+  MLOlineService_modelPredict_args() : clientid(0), modelName(), strFeature() {
   }
 
   virtual ~MLOlineService_modelPredict_args() throw();
+  int32_t clientid;
+  std::string modelName;
   std::string strFeature;
 
   _MLOlineService_modelPredict_args__isset __isset;
+
+  void __set_clientid(const int32_t val);
+
+  void __set_modelName(const std::string& val);
 
   void __set_strFeature(const std::string& val);
 
   bool operator == (const MLOlineService_modelPredict_args & rhs) const
   {
+    if (!(clientid == rhs.clientid))
+      return false;
+    if (!(modelName == rhs.modelName))
+      return false;
     if (!(strFeature == rhs.strFeature))
       return false;
     return true;
@@ -207,6 +226,8 @@ class MLOlineService_modelPredict_pargs {
 
 
   virtual ~MLOlineService_modelPredict_pargs() throw();
+  const int32_t* clientid;
+  const std::string* modelName;
   const std::string* strFeature;
 
   uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
@@ -293,11 +314,11 @@ class MLOlineServiceClient : virtual public MLOlineServiceIf {
   boost::shared_ptr< ::apache::thrift::protocol::TProtocol> getOutputProtocol() {
     return poprot_;
   }
-  void getLabel(std::vector<int32_t> & _return, const std::string& modelName);
-  void send_getLabel(const std::string& modelName);
+  void getLabel(std::vector<int32_t> & _return, const int32_t clientid, const std::string& modelName);
+  void send_getLabel(const int32_t clientid, const std::string& modelName);
   void recv_getLabel(std::vector<int32_t> & _return);
-  void modelPredict(returnType& _return, const std::string& strFeature);
-  void send_modelPredict(const std::string& strFeature);
+  void modelPredict(returnType& _return, const int32_t clientid, const std::string& modelName, const std::string& strFeature);
+  void send_modelPredict(const int32_t clientid, const std::string& modelName, const std::string& strFeature);
   void recv_modelPredict(returnType& _return);
  protected:
   boost::shared_ptr< ::apache::thrift::protocol::TProtocol> piprot_;
@@ -349,23 +370,23 @@ class MLOlineServiceMultiface : virtual public MLOlineServiceIf {
     ifaces_.push_back(iface);
   }
  public:
-  void getLabel(std::vector<int32_t> & _return, const std::string& modelName) {
+  void getLabel(std::vector<int32_t> & _return, const int32_t clientid, const std::string& modelName) {
     size_t sz = ifaces_.size();
     size_t i = 0;
     for (; i < (sz - 1); ++i) {
-      ifaces_[i]->getLabel(_return, modelName);
+      ifaces_[i]->getLabel(_return, clientid, modelName);
     }
-    ifaces_[i]->getLabel(_return, modelName);
+    ifaces_[i]->getLabel(_return, clientid, modelName);
     return;
   }
 
-  void modelPredict(returnType& _return, const std::string& strFeature) {
+  void modelPredict(returnType& _return, const int32_t clientid, const std::string& modelName, const std::string& strFeature) {
     size_t sz = ifaces_.size();
     size_t i = 0;
     for (; i < (sz - 1); ++i) {
-      ifaces_[i]->modelPredict(_return, strFeature);
+      ifaces_[i]->modelPredict(_return, clientid, modelName, strFeature);
     }
-    ifaces_[i]->modelPredict(_return, strFeature);
+    ifaces_[i]->modelPredict(_return, clientid, modelName, strFeature);
     return;
   }
 
@@ -399,11 +420,11 @@ class MLOlineServiceConcurrentClient : virtual public MLOlineServiceIf {
   boost::shared_ptr< ::apache::thrift::protocol::TProtocol> getOutputProtocol() {
     return poprot_;
   }
-  void getLabel(std::vector<int32_t> & _return, const std::string& modelName);
-  int32_t send_getLabel(const std::string& modelName);
+  void getLabel(std::vector<int32_t> & _return, const int32_t clientid, const std::string& modelName);
+  int32_t send_getLabel(const int32_t clientid, const std::string& modelName);
   void recv_getLabel(std::vector<int32_t> & _return, const int32_t seqid);
-  void modelPredict(returnType& _return, const std::string& strFeature);
-  int32_t send_modelPredict(const std::string& strFeature);
+  void modelPredict(returnType& _return, const int32_t clientid, const std::string& modelName, const std::string& strFeature);
+  int32_t send_modelPredict(const int32_t clientid, const std::string& modelName, const std::string& strFeature);
   void recv_modelPredict(returnType& _return, const int32_t seqid);
  protected:
   boost::shared_ptr< ::apache::thrift::protocol::TProtocol> piprot_;
