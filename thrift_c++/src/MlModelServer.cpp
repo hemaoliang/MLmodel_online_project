@@ -1,29 +1,28 @@
-#include <thrift/concurrency/ThreadManager.h>                                                                                                                 
-#include <thrift/concurrency/PlatformThreadFactory.h>                                                                                                         
-#include <thrift/protocol/TBinaryProtocol.h>                                                                                                                  
-#include <thrift/server/TSimpleServer.h>                                                                                                                      
-#include <thrift/server/TThreadPoolServer.h>                                                                                                                  
-#include <thrift/server/TThreadedServer.h>                                                                                                                    
-#include <thrift/transport/TServerSocket.h>                                                                                                                   
-#include <thrift/transport/TSocket.h>                                                                                                                         
-#include <thrift/transport/TTransportUtils.h>                                                                                                                 
-#include <thrift/TToString.h>                                                                                                                                 
-                                                                                                                                                              
-#include <boost/make_shared.hpp>                                                                                                                              
-                                                                                                                                                              
-#include <iostream>                                                                                                                                           
-#include <stdexcept> 
-#include <sstream>                                                                                                                                            
+#include <thrift/concurrency/ThreadManager.h>
+#include <thrift/concurrency/PlatformThreadFactory.h>
+#include <thrift/protocol/TBinaryProtocol.h>
+#include <thrift/server/TSimpleServer.h>
+#include <thrift/server/TThreadPoolServer.h>
+#include <thrift/server/TThreadedServer.h>
+#include <thrift/transport/TServerSocket.h>
+#include <thrift/transport/TSocket.h>
+#include <thrift/transport/TTransportUtils.h>
+#include <thrift/TToString.h>
+#include <boost/make_shared.hpp>
+
+#include <iostream>
+#include <stdexcept>
+#include <sstream>
 
 #include "../gen-cpp/MLOlineService.h"
 #include "ml_models.h"
 
-using namespace std;                                                                                                                                          
-using namespace apache::thrift;                                                                                                                               
-using namespace apache::thrift::concurrency;                                                                                                                  
-using namespace apache::thrift::protocol;                                                                                                                     
-using namespace apache::thrift::transport;                                                                                                                    
-using namespace apache::thrift::server; 
+using namespace std;
+using namespace apache::thrift;
+using namespace apache::thrift::concurrency;
+using namespace apache::thrift::protocol;
+using namespace apache::thrift::transport;
+using namespace apache::thrift::server;
 
 using namespace mlmodelserver;
 
@@ -31,9 +30,12 @@ class MLOlineServiceHandler : public MLOlineServiceIf
 {
 public:
 
-	MLOlineServiceHandler() {}
+	MLOlineServiceHandler() 
+	{
+		ml_model = new LibSvm_Model("/home/spongebob/MLmodel_online_project/thrift_c++/data/dianping_qqweixin_comm_feature_scale.model");
+	}
 
-	~MLOlineServiceHandler() 
+	~MLOlineServiceHandler()
 	{
 		if(ml_model != NULL)
 			delete ml_model;
@@ -50,7 +52,7 @@ public:
 
 	void modelPredict(returnType& _return, const int32_t clientid, const std::string& modelName, const std::string& strFeature)
 	{
-		nr_class = ml_model->get_nr_class(); 
+		nr_class = ml_model->get_nr_class();
 		prob_estimates = (double *) malloc(nr_class*sizeof(double));
 		//string.c_str returns const char* c_str() const and append \0 in the end;
 		char * line = new char [strFeature.length()+1];
@@ -59,8 +61,8 @@ public:
 		delete line;
 		for(int i=0; i<nr_class; i++)
 		{
-			if(ml_model->get_predict_probability()) 
-				_return.push_back(0); 
+			if(ml_model->get_predict_probability())
+				_return.push_back(0);
 			else
 				_return.push_back(*prob_estimates++);
 		}
@@ -72,7 +74,36 @@ private:
 
 }
 
+/*
+  MLOlineServiceIfFactory is code generated.
+  MLOlineServiceCloneFactory is useful for getting access to the server side of the
+  transport.  It is also useful for making per-connection state.  Without this
+  CloneFactory, all connections will end up sharing the same handler instance.
+*/
+class MLOlineServiceCloneFactory : virtual public MLOlineServiceIfFactory {
+ public:
+  virtual ~MLOlineServiceCloneFactory() {}
+  virtual CalculatorIf* getHandler(const ::apache::thrift::TConnectionInfo& connInfo)
+  {
+    boost::shared_ptr<TSocket> sock = boost::dynamic_pointer_cast<TSocket>(connInfo.transport);
+    cout << "Incoming connection\n";
+    cout << "\tSocketInfo: "  << sock->getSocketInfo() << "\n";
+    cout << "\tPeerHost: "    << sock->getPeerHost() << "\n";
+    cout << "\tPeerAddress: " << sock->getPeerAddress() << "\n";
+    cout << "\tPeerPort: "    << sock->getPeerPort() << "\n";
+    return new MLOlineServiceHandler;
+  }
+  virtual void releaseHandler( MLOlineServiceIf* handler) {
+    delete handler;
+  }
+};
 
+int main() {
+  TThreadedServer server(
+    boost::make_shared<MLOlineServiceProcessorFactory>(boost::make_shared<MLOlineServiceCloneFactory>()),
+    boost::make_shared<TServerSocket>(8000), //port
+    boost::make_shared<TBufferedTransportFactory>(),
+    boost::make_shared<TBinaryProtocolFactory>());
 
 
 
