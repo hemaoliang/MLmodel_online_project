@@ -11,6 +11,7 @@ SET(CMAKE_CXX_COMPILER_ID "GNU")
 # Targets to which this target links.
 SET(CMAKE_TARGET_LINKED_INFO_FILES
   "/home/spongebob/MLmodel_online_project/thrift_c++/CMakeFiles/mlmodel.dir/DependInfo.cmake"
+  "/home/spongebob/MLmodel_online_project/thrift_c++/CMakeFiles/gencpp.dir/DependInfo.cmake"
   )
 
 # The include file search paths:
@@ -20,6 +21,7 @@ SET(CMAKE_C_TARGET_INCLUDE_PATH
   "src/ml_libs/libsvm"
   "include"
   "test"
+  "src/gen-cpp"
   "/home/spongebob/software/thrift-0.9.3"
   "/usr/local/lib"
   "/usr/local/include/thrift"

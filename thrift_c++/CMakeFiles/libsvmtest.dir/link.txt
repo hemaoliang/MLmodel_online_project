@@ -1,1 +1,1 @@
-g++   -fPIC    CMakeFiles/libsvmtest.dir/test/libsvm_test.o  -o bin/libsvmtest  -L/home/spongebob/MLmodel_online_project/thrift_c++/lib -rdynamic lib/libmlmodel.a -lthrift -Wl,-rpath,/home/spongebob/MLmodel_online_project/thrift_c++/lib 
+g++   -fPIC    CMakeFiles/libsvmtest.dir/test/libsvm_test.o  -o bin/libsvmtest  -L/home/spongebob/MLmodel_online_project/thrift_c++/lib -rdynamic lib/libmlmodel.a -lthrift lib/libgencpp.a -Wl,-rpath,/home/spongebob/MLmodel_online_project/thrift_c++/lib 

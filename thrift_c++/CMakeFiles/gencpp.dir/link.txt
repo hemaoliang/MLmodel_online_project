@@ -1,0 +1,2 @@
+/usr/bin/ar cr lib/libgencpp.a  CMakeFiles/gencpp.dir/src/gen-cpp/mlmodel_online_project_constants.o CMakeFiles/gencpp.dir/src/gen-cpp/mlmodel_online_project_types.o CMakeFiles/gencpp.dir/src/gen-cpp/MLOlineService.o
+/usr/bin/ranlib lib/libgencpp.a

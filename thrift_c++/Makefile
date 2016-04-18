@@ -99,6 +99,32 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named MLOnlineServer
+
+# Build rule for target.
+MLOnlineServer: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 MLOnlineServer
+.PHONY : MLOnlineServer
+
+# fast build rule for target.
+MLOnlineServer/fast:
+	$(MAKE) -f CMakeFiles/MLOnlineServer.dir/build.make CMakeFiles/MLOnlineServer.dir/build
+.PHONY : MLOnlineServer/fast
+
+#=============================================================================
+# Target rules for targets named gencpp
+
+# Build rule for target.
+gencpp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 gencpp
+.PHONY : gencpp
+
+# fast build rule for target.
+gencpp/fast:
+	$(MAKE) -f CMakeFiles/gencpp.dir/build.make CMakeFiles/gencpp.dir/build
+.PHONY : gencpp/fast
+
+#=============================================================================
 # Target rules for targets named libsvmtest
 
 # Build rule for target.
@@ -123,6 +149,66 @@ mlmodel: cmake_check_build_system
 mlmodel/fast:
 	$(MAKE) -f CMakeFiles/mlmodel.dir/build.make CMakeFiles/mlmodel.dir/build
 .PHONY : mlmodel/fast
+
+# target to build an object file
+src/MlModelServer.o:
+	$(MAKE) -f CMakeFiles/MLOnlineServer.dir/build.make CMakeFiles/MLOnlineServer.dir/src/MlModelServer.o
+.PHONY : src/MlModelServer.o
+
+# target to preprocess a source file
+src/MlModelServer.i:
+	$(MAKE) -f CMakeFiles/MLOnlineServer.dir/build.make CMakeFiles/MLOnlineServer.dir/src/MlModelServer.i
+.PHONY : src/MlModelServer.i
+
+# target to generate assembly for a file
+src/MlModelServer.s:
+	$(MAKE) -f CMakeFiles/MLOnlineServer.dir/build.make CMakeFiles/MLOnlineServer.dir/src/MlModelServer.s
+.PHONY : src/MlModelServer.s
+
+# target to build an object file
+src/gen-cpp/MLOlineService.o:
+	$(MAKE) -f CMakeFiles/gencpp.dir/build.make CMakeFiles/gencpp.dir/src/gen-cpp/MLOlineService.o
+.PHONY : src/gen-cpp/MLOlineService.o
+
+# target to preprocess a source file
+src/gen-cpp/MLOlineService.i:
+	$(MAKE) -f CMakeFiles/gencpp.dir/build.make CMakeFiles/gencpp.dir/src/gen-cpp/MLOlineService.i
+.PHONY : src/gen-cpp/MLOlineService.i
+
+# target to generate assembly for a file
+src/gen-cpp/MLOlineService.s:
+	$(MAKE) -f CMakeFiles/gencpp.dir/build.make CMakeFiles/gencpp.dir/src/gen-cpp/MLOlineService.s
+.PHONY : src/gen-cpp/MLOlineService.s
+
+# target to build an object file
+src/gen-cpp/mlmodel_online_project_constants.o:
+	$(MAKE) -f CMakeFiles/gencpp.dir/build.make CMakeFiles/gencpp.dir/src/gen-cpp/mlmodel_online_project_constants.o
+.PHONY : src/gen-cpp/mlmodel_online_project_constants.o
+
+# target to preprocess a source file
+src/gen-cpp/mlmodel_online_project_constants.i:
+	$(MAKE) -f CMakeFiles/gencpp.dir/build.make CMakeFiles/gencpp.dir/src/gen-cpp/mlmodel_online_project_constants.i
+.PHONY : src/gen-cpp/mlmodel_online_project_constants.i
+
+# target to generate assembly for a file
+src/gen-cpp/mlmodel_online_project_constants.s:
+	$(MAKE) -f CMakeFiles/gencpp.dir/build.make CMakeFiles/gencpp.dir/src/gen-cpp/mlmodel_online_project_constants.s
+.PHONY : src/gen-cpp/mlmodel_online_project_constants.s
+
+# target to build an object file
+src/gen-cpp/mlmodel_online_project_types.o:
+	$(MAKE) -f CMakeFiles/gencpp.dir/build.make CMakeFiles/gencpp.dir/src/gen-cpp/mlmodel_online_project_types.o
+.PHONY : src/gen-cpp/mlmodel_online_project_types.o
+
+# target to preprocess a source file
+src/gen-cpp/mlmodel_online_project_types.i:
+	$(MAKE) -f CMakeFiles/gencpp.dir/build.make CMakeFiles/gencpp.dir/src/gen-cpp/mlmodel_online_project_types.i
+.PHONY : src/gen-cpp/mlmodel_online_project_types.i
+
+# target to generate assembly for a file
+src/gen-cpp/mlmodel_online_project_types.s:
+	$(MAKE) -f CMakeFiles/gencpp.dir/build.make CMakeFiles/gencpp.dir/src/gen-cpp/mlmodel_online_project_types.s
+.PHONY : src/gen-cpp/mlmodel_online_project_types.s
 
 # target to build an object file
 src/ml_libs/libsvm/eval.o:
@@ -190,10 +276,24 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
+	@echo "... MLOnlineServer"
 	@echo "... edit_cache"
+	@echo "... gencpp"
 	@echo "... libsvmtest"
 	@echo "... mlmodel"
 	@echo "... rebuild_cache"
+	@echo "... src/MlModelServer.o"
+	@echo "... src/MlModelServer.i"
+	@echo "... src/MlModelServer.s"
+	@echo "... src/gen-cpp/MLOlineService.o"
+	@echo "... src/gen-cpp/MLOlineService.i"
+	@echo "... src/gen-cpp/MLOlineService.s"
+	@echo "... src/gen-cpp/mlmodel_online_project_constants.o"
+	@echo "... src/gen-cpp/mlmodel_online_project_constants.i"
+	@echo "... src/gen-cpp/mlmodel_online_project_constants.s"
+	@echo "... src/gen-cpp/mlmodel_online_project_types.o"
+	@echo "... src/gen-cpp/mlmodel_online_project_types.i"
+	@echo "... src/gen-cpp/mlmodel_online_project_types.s"
 	@echo "... src/ml_libs/libsvm/eval.o"
 	@echo "... src/ml_libs/libsvm/eval.i"
 	@echo "... src/ml_libs/libsvm/eval.s"

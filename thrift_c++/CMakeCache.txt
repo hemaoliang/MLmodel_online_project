@@ -189,8 +189,11 @@ EXECUTABLE_OUTPUT_PATH:PATH=
 //Single output directory for building all libraries.
 LIBRARY_OUTPUT_PATH:PATH=
 
+//Dependencies for target
+gencpp_LIB_DEPENDS:STATIC=
+
 //Dependencies for the target
-mlmodel_LIB_DEPENDS:STATIC=general;libthrift.so;
+mlmodel_LIB_DEPENDS:STATIC=general;libthrift.so;general;gencpp;
 
 //Value Computed by CMake
 thrift_c++_BINARY_DIR:STATIC=/home/spongebob/MLmodel_online_project/thrift_c++

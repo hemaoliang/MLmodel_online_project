@@ -28,6 +28,7 @@ include_directories("${CMAKE_CURRENT_BINARY_DIR}/src/ml_libs/libsvm")
 #PROJECT_SOURCE_DIR 工程的顶级目录
 include_directories("${PROJECT_SOURCE_DIR}/include")
 include_directories("${PROJECT_SOURCE_DIR}/test")
+include_directories("${CMAKE_CURRENT_BINARY_DIR}/src/gen-cpp")
 
 include_directories("/home/spongebob/software/thrift-0.9.3")
 
@@ -49,23 +50,26 @@ set(mlmodel_SOURCES
     src/ml_models/mlmodel.cpp
 )
 
+set(gencpp_SOURCES
+    src/gen-cpp/mlmodel_online_project_constants.cpp
+    src/gen-cpp/mlmodel_online_project_types.cpp
+    src/gen-cpp/MLOlineService.cpp
+)
+
+#add_custom_command(OUTPUT src/gen-cpp/mlmodel_online_project_constants.cpp src/gen-cpp/mlmodel_online_project_types.cpp src/gen-cpp/MLOlineService.cpp src/gen-cpp/MLOlineService_server.skeleton.cpp
+#    COMMAND thrift-compiler --gen cpp -r ${PROJECT_SOURCE_DIR}/thrift/mlmodel_online_project.thrift
+#)
 
 add_library(mlmodel STATIC ${mlmodel_SOURCES})
-#LINK_AGAINST_THRIFT_LIBRARY(tutorialgencpp thrift)
-target_link_libraries(mlmodel libthrift.so)
+
+add_library(gencpp STATIC ${gencpp_SOURCES})
+
+target_link_libraries(mlmodel libthrift.so gencpp)
+
 
 add_executable(libsvmtest test/libsvm_test.cpp)
 target_link_libraries(libsvmtest mlmodel)
 
-#add_custom_command(OUTPUT gen-cpp/Calculator.cpp gen-cpp/SharedService.cpp gen-cpp/shared_constants.cpp gen-cpp/shared_types.cpp gen-cpp/tutorial_constants.cpp gen-cpp/tutorial_types.cpp
-#    COMMAND thrift-compiler --gen cpp -r ${PROJECT_SOURCE_DIR}/tutorial/tutorial.thrift
-#)
-#
-#add_executable(TutorialServer CppServer.cpp)
-#target_link_libraries(TutorialServer tutorialgencpp)
-##LINK_AGAINST_THRIFT_LIBRARY(TutorialServer thrift)
-#
-#add_executable(TutorialClient CppClient.cpp)
-#target_link_libraries(TutorialClient tutorialgencpp)
-##LINK_AGAINST_THRIFT_LIBRARY(TutorialClient thrift)
-#
+add_executable(MLOnlineServer src/MlModelServer.cpp)
+target_link_libraries(MLOnlineServer mlmodel)
+

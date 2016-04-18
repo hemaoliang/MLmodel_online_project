@@ -53,13 +53,85 @@ CMAKE_SOURCE_DIR = /home/spongebob/MLmodel_online_project/thrift_c++
 CMAKE_BINARY_DIR = /home/spongebob/MLmodel_online_project/thrift_c++
 
 #=============================================================================
+# Target rules for target CMakeFiles/MLOnlineServer.dir
+
+# All Build rule for target.
+CMakeFiles/MLOnlineServer.dir/all: CMakeFiles/mlmodel.dir/all
+CMakeFiles/MLOnlineServer.dir/all: CMakeFiles/gencpp.dir/all
+	$(MAKE) -f CMakeFiles/MLOnlineServer.dir/build.make CMakeFiles/MLOnlineServer.dir/depend
+	$(MAKE) -f CMakeFiles/MLOnlineServer.dir/build.make CMakeFiles/MLOnlineServer.dir/build
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/spongebob/MLmodel_online_project/thrift_c++/CMakeFiles  1
+	@echo "Built target MLOnlineServer"
+.PHONY : CMakeFiles/MLOnlineServer.dir/all
+
+# Include target in all.
+all: CMakeFiles/MLOnlineServer.dir/all
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/MLOnlineServer.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/spongebob/MLmodel_online_project/thrift_c++/CMakeFiles 7
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/MLOnlineServer.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/spongebob/MLmodel_online_project/thrift_c++/CMakeFiles 0
+.PHONY : CMakeFiles/MLOnlineServer.dir/rule
+
+# Convenience name for target.
+MLOnlineServer: CMakeFiles/MLOnlineServer.dir/rule
+.PHONY : MLOnlineServer
+
+# clean rule for target.
+CMakeFiles/MLOnlineServer.dir/clean:
+	$(MAKE) -f CMakeFiles/MLOnlineServer.dir/build.make CMakeFiles/MLOnlineServer.dir/clean
+.PHONY : CMakeFiles/MLOnlineServer.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/MLOnlineServer.dir/clean
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/gencpp.dir
+
+# All Build rule for target.
+CMakeFiles/gencpp.dir/all:
+	$(MAKE) -f CMakeFiles/gencpp.dir/build.make CMakeFiles/gencpp.dir/depend
+	$(MAKE) -f CMakeFiles/gencpp.dir/build.make CMakeFiles/gencpp.dir/build
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/spongebob/MLmodel_online_project/thrift_c++/CMakeFiles  2 3 4
+	@echo "Built target gencpp"
+.PHONY : CMakeFiles/gencpp.dir/all
+
+# Include target in all.
+all: CMakeFiles/gencpp.dir/all
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/gencpp.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/spongebob/MLmodel_online_project/thrift_c++/CMakeFiles 3
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/gencpp.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/spongebob/MLmodel_online_project/thrift_c++/CMakeFiles 0
+.PHONY : CMakeFiles/gencpp.dir/rule
+
+# Convenience name for target.
+gencpp: CMakeFiles/gencpp.dir/rule
+.PHONY : gencpp
+
+# clean rule for target.
+CMakeFiles/gencpp.dir/clean:
+	$(MAKE) -f CMakeFiles/gencpp.dir/build.make CMakeFiles/gencpp.dir/clean
+.PHONY : CMakeFiles/gencpp.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/gencpp.dir/clean
+.PHONY : clean
+
+#=============================================================================
 # Target rules for target CMakeFiles/libsvmtest.dir
 
 # All Build rule for target.
 CMakeFiles/libsvmtest.dir/all: CMakeFiles/mlmodel.dir/all
+CMakeFiles/libsvmtest.dir/all: CMakeFiles/gencpp.dir/all
 	$(MAKE) -f CMakeFiles/libsvmtest.dir/build.make CMakeFiles/libsvmtest.dir/depend
 	$(MAKE) -f CMakeFiles/libsvmtest.dir/build.make CMakeFiles/libsvmtest.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/spongebob/MLmodel_online_project/thrift_c++/CMakeFiles  1
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/spongebob/MLmodel_online_project/thrift_c++/CMakeFiles  5
 	@echo "Built target libsvmtest"
 .PHONY : CMakeFiles/libsvmtest.dir/all
 
@@ -69,7 +141,7 @@ all: CMakeFiles/libsvmtest.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/libsvmtest.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/spongebob/MLmodel_online_project/thrift_c++/CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/spongebob/MLmodel_online_project/thrift_c++/CMakeFiles 7
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/libsvmtest.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/spongebob/MLmodel_online_project/thrift_c++/CMakeFiles 0
 .PHONY : CMakeFiles/libsvmtest.dir/rule
@@ -91,10 +163,10 @@ clean: CMakeFiles/libsvmtest.dir/clean
 # Target rules for target CMakeFiles/mlmodel.dir
 
 # All Build rule for target.
-CMakeFiles/mlmodel.dir/all:
+CMakeFiles/mlmodel.dir/all: CMakeFiles/gencpp.dir/all
 	$(MAKE) -f CMakeFiles/mlmodel.dir/build.make CMakeFiles/mlmodel.dir/depend
 	$(MAKE) -f CMakeFiles/mlmodel.dir/build.make CMakeFiles/mlmodel.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/spongebob/MLmodel_online_project/thrift_c++/CMakeFiles  2 3 4
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/spongebob/MLmodel_online_project/thrift_c++/CMakeFiles  6 7 8
 	@echo "Built target mlmodel"
 .PHONY : CMakeFiles/mlmodel.dir/all
 
@@ -104,7 +176,7 @@ all: CMakeFiles/mlmodel.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/mlmodel.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/spongebob/MLmodel_online_project/thrift_c++/CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/spongebob/MLmodel_online_project/thrift_c++/CMakeFiles 6
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/mlmodel.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/spongebob/MLmodel_online_project/thrift_c++/CMakeFiles 0
 .PHONY : CMakeFiles/mlmodel.dir/rule

@@ -82,6 +82,7 @@ libsvmtest_EXTERNAL_OBJECTS =
 bin/libsvmtest: CMakeFiles/libsvmtest.dir/test/libsvm_test.o
 bin/libsvmtest: CMakeFiles/libsvmtest.dir/build.make
 bin/libsvmtest: lib/libmlmodel.a
+bin/libsvmtest: lib/libgencpp.a
 bin/libsvmtest: CMakeFiles/libsvmtest.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --red --bold "Linking CXX executable bin/libsvmtest"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/libsvmtest.dir/link.txt --verbose=$(VERBOSE)
