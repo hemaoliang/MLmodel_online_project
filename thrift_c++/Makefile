@@ -112,6 +112,19 @@ MLOnlineServer/fast:
 .PHONY : MLOnlineServer/fast
 
 #=============================================================================
+# Target rules for targets named MlModelClient
+
+# Build rule for target.
+MlModelClient: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 MlModelClient
+.PHONY : MlModelClient
+
+# fast build rule for target.
+MlModelClient/fast:
+	$(MAKE) -f CMakeFiles/MlModelClient.dir/build.make CMakeFiles/MlModelClient.dir/build
+.PHONY : MlModelClient/fast
+
+#=============================================================================
 # Target rules for targets named gencpp
 
 # Build rule for target.
@@ -149,6 +162,21 @@ mlmodel: cmake_check_build_system
 mlmodel/fast:
 	$(MAKE) -f CMakeFiles/mlmodel.dir/build.make CMakeFiles/mlmodel.dir/build
 .PHONY : mlmodel/fast
+
+# target to build an object file
+src/MlModelClient.o:
+	$(MAKE) -f CMakeFiles/MlModelClient.dir/build.make CMakeFiles/MlModelClient.dir/src/MlModelClient.o
+.PHONY : src/MlModelClient.o
+
+# target to preprocess a source file
+src/MlModelClient.i:
+	$(MAKE) -f CMakeFiles/MlModelClient.dir/build.make CMakeFiles/MlModelClient.dir/src/MlModelClient.i
+.PHONY : src/MlModelClient.i
+
+# target to generate assembly for a file
+src/MlModelClient.s:
+	$(MAKE) -f CMakeFiles/MlModelClient.dir/build.make CMakeFiles/MlModelClient.dir/src/MlModelClient.s
+.PHONY : src/MlModelClient.s
 
 # target to build an object file
 src/MlModelServer.o:
@@ -277,11 +305,15 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... MLOnlineServer"
+	@echo "... MlModelClient"
 	@echo "... edit_cache"
 	@echo "... gencpp"
 	@echo "... libsvmtest"
 	@echo "... mlmodel"
 	@echo "... rebuild_cache"
+	@echo "... src/MlModelClient.o"
+	@echo "... src/MlModelClient.i"
+	@echo "... src/MlModelClient.s"
 	@echo "... src/MlModelServer.o"
 	@echo "... src/MlModelServer.i"
 	@echo "... src/MlModelServer.s"

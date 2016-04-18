@@ -73,3 +73,6 @@ target_link_libraries(libsvmtest mlmodel)
 add_executable(MLOnlineServer src/MlModelServer.cpp)
 target_link_libraries(MLOnlineServer mlmodel)
 
+add_executable(MlModelClient src/MlModelClient.cpp)
+target_link_libraries(MlModelClient mlmodel)
+
