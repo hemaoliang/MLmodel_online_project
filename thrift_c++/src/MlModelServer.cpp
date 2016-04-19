@@ -38,7 +38,10 @@ public:
 	~MLOlineServiceHandler()
 	{
 		if(ml_model != NULL)
+		{
+			cout<<" free ml_model in handler"<<"\n";
 			delete ml_model;
+		}
 	}
 	
 	void getLabel(std::vector<int32_t> & _return, const int32_t clientid, const std::string& modelName)
@@ -46,7 +49,7 @@ public:
 		int nr_class = ml_model->get_nr_class();
 		int * label_poi = ml_model->get_labels();
 		for(int i=0; i<nr_class; i++)
-			_return.push_back(*label_poi++);
+			_return.push_back(label_poi[i]);
 		cout << clientid <<" call getLabel" << endl;
 	}
 
@@ -58,13 +61,14 @@ public:
 		char * line = new char [strFeature.length()+1];
 		strcpy (line, strFeature.c_str());		
 		_return.predicted = ml_model->predict(line,prob_estimates);
-		delete line;
+		//_return.predicted = 0;
+		delete[] line;
 		for(int i=0; i<nr_class; i++)
 		{
-			if(ml_model->get_predict_probability())
+			if(ml_model->get_predict_probability()==0)
 				_return.prob.push_back(0);
 			else
-				_return.prob.push_back(*prob_estimates++);
+				_return.prob.push_back(prob_estimates[i]);
 		}
 		free(prob_estimates);
 	}
