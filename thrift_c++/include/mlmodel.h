@@ -14,6 +14,7 @@ class ML_Model
 {
 public:
 	ML_Model(){ }
+	// if not virtual: will prevent the subclass release the memory
 	virtual ~ML_Model(){ }
 	//double predict(const libsvm::svm_node *x, double *prob_estimates);
 	virtual double predict(char *line, double *prob_estimates) = 0;
