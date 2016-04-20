@@ -76,3 +76,6 @@ target_link_libraries(MLOnlineServer mlmodel)
 add_executable(MlModelClient src/MlModelClient.cpp)
 target_link_libraries(MlModelClient mlmodel)
 
+
+add_executable(MlModelClientv2 src/MlModelClientv2.cpp)
+target_link_libraries(MlModelClientv2 mlmodel)

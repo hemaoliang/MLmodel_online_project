@@ -125,6 +125,19 @@ MlModelClient/fast:
 .PHONY : MlModelClient/fast
 
 #=============================================================================
+# Target rules for targets named MlModelClientv2
+
+# Build rule for target.
+MlModelClientv2: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 MlModelClientv2
+.PHONY : MlModelClientv2
+
+# fast build rule for target.
+MlModelClientv2/fast:
+	$(MAKE) -f CMakeFiles/MlModelClientv2.dir/build.make CMakeFiles/MlModelClientv2.dir/build
+.PHONY : MlModelClientv2/fast
+
+#=============================================================================
 # Target rules for targets named gencpp
 
 # Build rule for target.
@@ -177,6 +190,21 @@ src/MlModelClient.i:
 src/MlModelClient.s:
 	$(MAKE) -f CMakeFiles/MlModelClient.dir/build.make CMakeFiles/MlModelClient.dir/src/MlModelClient.s
 .PHONY : src/MlModelClient.s
+
+# target to build an object file
+src/MlModelClientv2.o:
+	$(MAKE) -f CMakeFiles/MlModelClientv2.dir/build.make CMakeFiles/MlModelClientv2.dir/src/MlModelClientv2.o
+.PHONY : src/MlModelClientv2.o
+
+# target to preprocess a source file
+src/MlModelClientv2.i:
+	$(MAKE) -f CMakeFiles/MlModelClientv2.dir/build.make CMakeFiles/MlModelClientv2.dir/src/MlModelClientv2.i
+.PHONY : src/MlModelClientv2.i
+
+# target to generate assembly for a file
+src/MlModelClientv2.s:
+	$(MAKE) -f CMakeFiles/MlModelClientv2.dir/build.make CMakeFiles/MlModelClientv2.dir/src/MlModelClientv2.s
+.PHONY : src/MlModelClientv2.s
 
 # target to build an object file
 src/MlModelServer.o:
@@ -306,6 +334,7 @@ help:
 	@echo "... depend"
 	@echo "... MLOnlineServer"
 	@echo "... MlModelClient"
+	@echo "... MlModelClientv2"
 	@echo "... edit_cache"
 	@echo "... gencpp"
 	@echo "... libsvmtest"
@@ -314,6 +343,9 @@ help:
 	@echo "... src/MlModelClient.o"
 	@echo "... src/MlModelClient.i"
 	@echo "... src/MlModelClient.s"
+	@echo "... src/MlModelClientv2.o"
+	@echo "... src/MlModelClientv2.i"
+	@echo "... src/MlModelClientv2.s"
 	@echo "... src/MlModelServer.o"
 	@echo "... src/MlModelServer.i"
 	@echo "... src/MlModelServer.s"

@@ -43,6 +43,7 @@ SET(CMAKE_MAKEFILE_PRODUCTS
 SET(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/MLOnlineServer.dir/DependInfo.cmake"
   "CMakeFiles/MlModelClient.dir/DependInfo.cmake"
+  "CMakeFiles/MlModelClientv2.dir/DependInfo.cmake"
   "CMakeFiles/gencpp.dir/DependInfo.cmake"
   "CMakeFiles/libsvmtest.dir/DependInfo.cmake"
   "CMakeFiles/mlmodel.dir/DependInfo.cmake"
