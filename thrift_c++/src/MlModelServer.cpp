@@ -32,7 +32,7 @@ public:
 
 	MLOlineServiceHandler()
 	{
-		count<<"construct handler"<<"\n";
+		cout<<"construct handler"<<"\n";
 		ml_model = new LibSvm_Model("/home/spongebob/MLmodel_online_project/thrift_c++/data/dianping_qqweixin_comm_feature_scale.model", "test_libsvm");
 	}
 
