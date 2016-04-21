@@ -56,7 +56,7 @@ public:
 
 	void modelPredict(returnType& _return, const int32_t clientid, const std::string& modelName, const std::string& strFeature)
 	{
-		cout << clientid <<" call modelPredict" << endl;
+		//cout << clientid <<" call modelPredict" << endl;
 		int nr_class = ml_model->get_nr_class();
 		double *prob_estimates = (double *) malloc(nr_class*sizeof(double));
 		//string.c_str returns const char* c_str() const and append \0 in the end;
