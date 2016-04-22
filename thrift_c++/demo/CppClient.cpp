@@ -34,6 +34,10 @@ using namespace tutorial;
 using namespace shared;
 
 int main() {
+  
+  for(int i=0; ;i++)
+  {
+  cout<<"testing "<<i<<"times "<<endl;
   boost::shared_ptr<TTransport> socket(new TSocket("localhost", 9090));
   boost::shared_ptr<TTransport> transport(new TBufferedTransport(socket));
   boost::shared_ptr<TProtocol> protocol(new TBinaryProtocol(transport));
@@ -77,4 +81,6 @@ int main() {
   } catch (TException& tx) {
     cout << "ERROR: " << tx.what() << endl;
   }
+
+  } // end for
 }

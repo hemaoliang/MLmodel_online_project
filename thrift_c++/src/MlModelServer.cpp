@@ -106,11 +106,20 @@ public:
 };
 
 int main() {
-	TThreadedServer server(
-		boost::make_shared<MLOlineServiceProcessorFactory>(boost::make_shared<MLOlineServiceCloneFactory>()),
-		boost::make_shared<TServerSocket>(8000), //port
-		boost::make_shared<TBufferedTransportFactory>(),
-		boost::make_shared<TBinaryProtocolFactory>());
+	
+	int port = 8000;
+	boost::shared_ptr<MLOlineServiceHandler> handler(new MLOlineServiceHandler());
+	boost::shared_ptr<TProcessor> processor(new MLOlineServiceProcessor(handler));
+	boost::shared_ptr<TServerTransport> serverTransport(new TServerSocket(port));
+	boost::shared_ptr<TTransportFactory> transportFactory(new TBufferedTransportFactory());
+	boost::shared_ptr<TProtocolFactory> protocolFactory(new TBinaryProtocolFactory());
+	TThreadedServer server(processor, serverTransport, transportFactory, protocolFactory); 
+
+	//TThreadedServer server(		
+	//	boost::make_shared<MLOlineServiceProcessorFactory>(boost::make_shared<MLOlineServiceCloneFactory>()),
+	//	boost::make_shared<TServerSocket>(8000), //port
+	//	boost::make_shared<TBufferedTransportFactory>(),
+	//	boost::make_shared<TBinaryProtocolFactory>());
 
 	cout << "Starting the server..." << endl;
 	server.serve();
