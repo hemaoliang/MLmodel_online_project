@@ -73,11 +73,11 @@ double LibSvm_Model::predict(char *line, double *prob_estimates)
 
 	label = strtok(line," \t\n");
 	if(label == NULL) // empty line
-		fprintf(stderr,"Wrong input format."); 
+		fprintf(stderr,"Wrong input format.\n"); 
 	
 	target_label = strtod(label,&endptr);
 	if(endptr == label || *endptr != '\0')
-		fprintf(stderr,"Wrong input format.");
+		fprintf(stderr,"Wrong input format.\n");
 	
 	while(1)
 	{
@@ -94,14 +94,14 @@ double LibSvm_Model::predict(char *line, double *prob_estimates)
 		errno = 0;
 		x[i].index = (int) strtol(idx,&endptr,10);
 		if(endptr == idx || errno != 0 || *endptr != '\0' || x[i].index <= inst_max_index)
-			fprintf(stderr,"Wrong input format.");
+			fprintf(stderr,"Wrong input format.\n");
 		else
 			inst_max_index = x[i].index;
 		
 		errno = 0;
 		x[i].value = strtod(val,&endptr);
 		if(endptr == val || errno != 0 || (*endptr != '\0' && !isspace(*endptr)))
-			fprintf(stderr,"Wrong input format.");
+			fprintf(stderr,"Wrong input format.\n");
 		
 		++i;
 	}
