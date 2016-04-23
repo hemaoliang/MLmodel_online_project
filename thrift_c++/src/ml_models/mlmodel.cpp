@@ -71,13 +71,20 @@ double LibSvm_Model::predict(char *line, double *prob_estimates)
 	char *idx, *val, *label, *endptr;
 	int inst_max_index = -1; // strtol gives 0 if wrong format, and precomputed kernel has <index> start from 0	
 
-	label = strtok(line," \t\n");
-	if(label == NULL) // empty line
-		fprintf(stderr,"Wrong input format.\n"); 
+	char *line_back = (char *)malloc(1000*sizeof(char)); ;
+	strcpy(line_back,line); 
+	//printf("libsvm predict %s\n", line);
 	
+	// strtok is not a thread safe function
+	//label = strtok(line," \t\n");
+	char *last;	
+	label = strtok_r(line," \t\n",&last);
+	if(label == NULL) // empty line
+		fprintf(stderr,"label Wrong input format [%s].\n", line_back); 
+
 	target_label = strtod(label,&endptr);
 	if(endptr == label || *endptr != '\0')
-		fprintf(stderr,"Wrong input format.\n");
+		fprintf(stderr,"target_label Wrong input format [%s].\n", line_back);
 	
 	while(1)
 	{
@@ -86,22 +93,22 @@ double LibSvm_Model::predict(char *line, double *prob_estimates)
 			max_nr_attr *= 2;
 			x = (struct libsvm::svm_node *) realloc(x,max_nr_attr*sizeof(struct libsvm::svm_node));
 		}
-		idx = strtok(NULL,":");
-		val = strtok(NULL," \t");
+		idx = strtok_r(NULL,":",&last);
+		val = strtok_r(NULL," \t",&last);
 		
 		if(val == NULL)
 			break;
 		errno = 0;
 		x[i].index = (int) strtol(idx,&endptr,10);
 		if(endptr == idx || errno != 0 || *endptr != '\0' || x[i].index <= inst_max_index)
-			fprintf(stderr,"Wrong input format.\n");
+			fprintf(stderr,"index Wrong input format [%s] index %s.\n", line_back, idx);
 		else
 			inst_max_index = x[i].index;
 		
 		errno = 0;
 		x[i].value = strtod(val,&endptr);
 		if(endptr == val || errno != 0 || (*endptr != '\0' && !isspace(*endptr)))
-			fprintf(stderr,"Wrong input format.\n");
+			fprintf(stderr,"value Wrong input format [%s] val %s.\n", line_back, val);
 		
 		++i;
 	}
@@ -113,5 +120,6 @@ double LibSvm_Model::predict(char *line, double *prob_estimates)
 		predict_label = svm_predict(model,x);	
 	
 	free(x);
+	free(line_back);
 	return predict_label;
 }

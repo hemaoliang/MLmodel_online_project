@@ -56,15 +56,16 @@ public:
 
 	void modelPredict(returnType& _return, const int32_t clientid, const std::string& modelName, const std::string& strFeature)
 	{
-		//cout << clientid <<" call modelPredict" << endl;
 		int nr_class = ml_model->get_nr_class();
 		double *prob_estimates = (double *) malloc(nr_class*sizeof(double));
 		//string.c_str returns const char* c_str() const and append \0 in the end;
-		char * line = new char [strFeature.length()+1];
-		strcpy (line, strFeature.c_str());		
+		//char * line = new char [strFeature.length()+1];
+		char *line = (char *)malloc((strFeature.length()+1)*sizeof(char)); 
+		strcpy(line, strFeature.c_str());
+		//cout << clientid <<" call modelPredict "  <<line<< endl;
 		_return.predicted = ml_model->predict(line,prob_estimates);
 		//_return.predicted = 0;
-		delete[] line;
+		free(line);
 		for(int i=0; i<nr_class; i++)
 		{
 			if(ml_model->get_predict_probability()==0)
@@ -107,19 +108,19 @@ public:
 
 int main() {
 	
-	int port = 8000;
-	boost::shared_ptr<MLOlineServiceHandler> handler(new MLOlineServiceHandler());
-	boost::shared_ptr<TProcessor> processor(new MLOlineServiceProcessor(handler));
-	boost::shared_ptr<TServerTransport> serverTransport(new TServerSocket(port));
-	boost::shared_ptr<TTransportFactory> transportFactory(new TBufferedTransportFactory());
-	boost::shared_ptr<TProtocolFactory> protocolFactory(new TBinaryProtocolFactory());
-	TThreadedServer server(processor, serverTransport, transportFactory, protocolFactory); 
+	//int port = 8000;
+	//boost::shared_ptr<MLOlineServiceHandler> handler(new MLOlineServiceHandler());
+	//boost::shared_ptr<TProcessor> processor(new MLOlineServiceProcessor(handler));
+	//boost::shared_ptr<TServerTransport> serverTransport(new TServerSocket(port));
+	//boost::shared_ptr<TTransportFactory> transportFactory(new TBufferedTransportFactory());
+	//boost::shared_ptr<TProtocolFactory> protocolFactory(new TBinaryProtocolFactory());
+	//TThreadedServer server(processor, serverTransport, transportFactory, protocolFactory); 
 
-	//TThreadedServer server(		
-	//	boost::make_shared<MLOlineServiceProcessorFactory>(boost::make_shared<MLOlineServiceCloneFactory>()),
-	//	boost::make_shared<TServerSocket>(8000), //port
-	//	boost::make_shared<TBufferedTransportFactory>(),
-	//	boost::make_shared<TBinaryProtocolFactory>());
+	TThreadedServer server(		
+		boost::make_shared<MLOlineServiceProcessorFactory>(boost::make_shared<MLOlineServiceCloneFactory>()),
+		boost::make_shared<TServerSocket>(8000), //port
+		boost::make_shared<TBufferedTransportFactory>(),
+		boost::make_shared<TBinaryProtocolFactory>());
 
 	cout << "Starting the server..." << endl;
 	server.serve();
