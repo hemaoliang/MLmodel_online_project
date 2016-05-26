@@ -78,6 +78,7 @@ static int parse_model_config(const char *file_name)
 			id = xmlGetProp(cur, (const xmlChar *) "id");
 			printf("id:%s\t",id);
 			parse_model(doc, cur);
+                        xmlFree(id);
 		}
 		cur = cur->next;
 	}
