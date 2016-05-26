@@ -26,6 +26,7 @@ SET(CMAKE_C_TARGET_INCLUDE_PATH
   "/home/spongebob/software/thrift-0.9.3"
   "/usr/local/lib"
   "/usr/local/include/thrift"
+  "/usr/local/include/libxml2"
   )
 SET(CMAKE_CXX_TARGET_INCLUDE_PATH ${CMAKE_C_TARGET_INCLUDE_PATH})
 SET(CMAKE_Fortran_TARGET_INCLUDE_PATH ${CMAKE_C_TARGET_INCLUDE_PATH})

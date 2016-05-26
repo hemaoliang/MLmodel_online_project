@@ -176,6 +176,19 @@ mlmodel/fast:
 	$(MAKE) -f CMakeFiles/mlmodel.dir/build.make CMakeFiles/mlmodel.dir/build
 .PHONY : mlmodel/fast
 
+#=============================================================================
+# Target rules for targets named xmltest
+
+# Build rule for target.
+xmltest: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 xmltest
+.PHONY : xmltest
+
+# fast build rule for target.
+xmltest/fast:
+	$(MAKE) -f CMakeFiles/xmltest.dir/build.make CMakeFiles/xmltest.dir/build
+.PHONY : xmltest/fast
+
 # target to build an object file
 src/MlModelClient.o:
 	$(MAKE) -f CMakeFiles/MlModelClient.dir/build.make CMakeFiles/MlModelClient.dir/src/MlModelClient.o
@@ -326,6 +339,21 @@ test/libsvm_test.s:
 	$(MAKE) -f CMakeFiles/libsvmtest.dir/build.make CMakeFiles/libsvmtest.dir/test/libsvm_test.s
 .PHONY : test/libsvm_test.s
 
+# target to build an object file
+test/xml_parse_test.o:
+	$(MAKE) -f CMakeFiles/xmltest.dir/build.make CMakeFiles/xmltest.dir/test/xml_parse_test.o
+.PHONY : test/xml_parse_test.o
+
+# target to preprocess a source file
+test/xml_parse_test.i:
+	$(MAKE) -f CMakeFiles/xmltest.dir/build.make CMakeFiles/xmltest.dir/test/xml_parse_test.i
+.PHONY : test/xml_parse_test.i
+
+# target to generate assembly for a file
+test/xml_parse_test.s:
+	$(MAKE) -f CMakeFiles/xmltest.dir/build.make CMakeFiles/xmltest.dir/test/xml_parse_test.s
+.PHONY : test/xml_parse_test.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -340,6 +368,7 @@ help:
 	@echo "... libsvmtest"
 	@echo "... mlmodel"
 	@echo "... rebuild_cache"
+	@echo "... xmltest"
 	@echo "... src/MlModelClient.o"
 	@echo "... src/MlModelClient.i"
 	@echo "... src/MlModelClient.s"
@@ -370,6 +399,9 @@ help:
 	@echo "... test/libsvm_test.o"
 	@echo "... test/libsvm_test.i"
 	@echo "... test/libsvm_test.s"
+	@echo "... test/xml_parse_test.o"
+	@echo "... test/xml_parse_test.i"
+	@echo "... test/xml_parse_test.s"
 .PHONY : help
 
 

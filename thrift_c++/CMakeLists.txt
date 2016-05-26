@@ -35,6 +35,7 @@ include_directories("/home/spongebob/software/thrift-0.9.3")
 #指定依赖的第三方库 相当于gcc的 -I
 include_directories("/usr/local/lib")
 include_directories("/usr/local/include/thrift")
+include_directories("/usr/local/include/libxml2")
 
 #link_directories：动态链接库或静态链接库的搜索路径，相当于gcc的-L参数
 link_directories("${PROJECT_SOURCE_DIR}/lib")
@@ -69,6 +70,9 @@ target_link_libraries(mlmodel libthrift.so gencpp)
 
 add_executable(libsvmtest test/libsvm_test.cpp)
 target_link_libraries(libsvmtest mlmodel)
+
+add_executable(xmltest test/xml_parse_test.cpp)
+target_link_libraries(xmltest libxml2.so)
 
 add_executable(MLOnlineServer src/MlModelServer.cpp)
 target_link_libraries(MLOnlineServer mlmodel)

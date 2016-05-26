@@ -1,0 +1,1 @@
+g++   -fPIC    CMakeFiles/xmltest.dir/test/xml_parse_test.o  -o bin/xmltest  -L/home/spongebob/MLmodel_online_project/thrift_c++/lib -rdynamic -lxml2 -Wl,-rpath,/home/spongebob/MLmodel_online_project/thrift_c++/lib 
