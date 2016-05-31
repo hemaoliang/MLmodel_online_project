@@ -1,0 +1,1 @@
+g++   -fPIC    CMakeFiles/logtest.dir/test/logger_test.o  -o bin/logtest  -L/home/spongebob/MLmodel_online_project/thrift_c++/lib -rdynamic -lpthread -Wl,-rpath,/home/spongebob/MLmodel_online_project/thrift_c++/lib 

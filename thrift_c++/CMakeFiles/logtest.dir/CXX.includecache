@@ -1,0 +1,26 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/spongebob/MLmodel_online_project/thrift_c++/test/logger_test.cpp
+stdio.h
+-
+ctype.h
+-
+stdlib.h
+-
+string
+-
+time.h
+-
+sstream
+-
+iostream
+-
+pthread.h
+-
+

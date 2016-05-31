@@ -46,6 +46,7 @@ SET(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/MlModelClientv2.dir/DependInfo.cmake"
   "CMakeFiles/gencpp.dir/DependInfo.cmake"
   "CMakeFiles/libsvmtest.dir/DependInfo.cmake"
+  "CMakeFiles/logtest.dir/DependInfo.cmake"
   "CMakeFiles/mlmodel.dir/DependInfo.cmake"
   "CMakeFiles/xmltest.dir/DependInfo.cmake"
   )

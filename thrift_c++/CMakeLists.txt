@@ -74,6 +74,9 @@ target_link_libraries(libsvmtest mlmodel)
 add_executable(xmltest test/xml_parse_test.cpp)
 target_link_libraries(xmltest libxml2.so)
 
+add_executable(logtest test/logger_test.cpp)
+target_link_libraries(logtest libpthread.so)
+
 add_executable(MLOnlineServer src/MlModelServer.cpp)
 target_link_libraries(MLOnlineServer mlmodel)
 

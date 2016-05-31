@@ -164,6 +164,19 @@ libsvmtest/fast:
 .PHONY : libsvmtest/fast
 
 #=============================================================================
+# Target rules for targets named logtest
+
+# Build rule for target.
+logtest: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 logtest
+.PHONY : logtest
+
+# fast build rule for target.
+logtest/fast:
+	$(MAKE) -f CMakeFiles/logtest.dir/build.make CMakeFiles/logtest.dir/build
+.PHONY : logtest/fast
+
+#=============================================================================
 # Target rules for targets named mlmodel
 
 # Build rule for target.
@@ -340,6 +353,21 @@ test/libsvm_test.s:
 .PHONY : test/libsvm_test.s
 
 # target to build an object file
+test/logger_test.o:
+	$(MAKE) -f CMakeFiles/logtest.dir/build.make CMakeFiles/logtest.dir/test/logger_test.o
+.PHONY : test/logger_test.o
+
+# target to preprocess a source file
+test/logger_test.i:
+	$(MAKE) -f CMakeFiles/logtest.dir/build.make CMakeFiles/logtest.dir/test/logger_test.i
+.PHONY : test/logger_test.i
+
+# target to generate assembly for a file
+test/logger_test.s:
+	$(MAKE) -f CMakeFiles/logtest.dir/build.make CMakeFiles/logtest.dir/test/logger_test.s
+.PHONY : test/logger_test.s
+
+# target to build an object file
 test/xml_parse_test.o:
 	$(MAKE) -f CMakeFiles/xmltest.dir/build.make CMakeFiles/xmltest.dir/test/xml_parse_test.o
 .PHONY : test/xml_parse_test.o
@@ -366,6 +394,7 @@ help:
 	@echo "... edit_cache"
 	@echo "... gencpp"
 	@echo "... libsvmtest"
+	@echo "... logtest"
 	@echo "... mlmodel"
 	@echo "... rebuild_cache"
 	@echo "... xmltest"
@@ -399,6 +428,9 @@ help:
 	@echo "... test/libsvm_test.o"
 	@echo "... test/libsvm_test.i"
 	@echo "... test/libsvm_test.s"
+	@echo "... test/logger_test.o"
+	@echo "... test/logger_test.i"
+	@echo "... test/logger_test.s"
 	@echo "... test/xml_parse_test.o"
 	@echo "... test/xml_parse_test.i"
 	@echo "... test/xml_parse_test.s"

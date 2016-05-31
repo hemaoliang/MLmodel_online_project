@@ -5,7 +5,6 @@
 #include <time.h>
 #include <sstream>
 
-#include <mutex>
 #include <iostream> 
 #include <pthread.h>
 
@@ -15,28 +14,32 @@ class MyLogger
 {
 	string file_prefix;
 	string filename;
-	int hour;
+	string yyyymmdd;
 
 	FILE *log_file_w;
 
 	pthread_mutex_t log_mutex;
 
+public:
 	
-	void log(FILE * log_out, string value)
+	void log(const char* log_value)
 	{
 		time_t tmNow = time(NULL);
 		struct tm *tmT;
-		tmT = localtime(&time);
+		tmT = localtime(&tmNow);
 
-		int hour_now = tmT->tm_hour;
-		printf("now hour: %d\n", hour_now);
-		if(hour_now != hour)
+		stringstream s;
+		s << tmT->tm_year << tmT->tm_mday << tmT->tm_mday << tmT->tm_hour;
+		string now_date = s.str();
+		s.str();
+	
+		pthread_mutex_lock( &log_mutex );
+		if(now_date != yyyymmdd)
 		//we are arriving an new hour
 		{
-			hour = hour_now;
+			yyyymmdd = now_date;
 			// concatenate the string and int 
-			stringstream s;
-			s << file_prefix << "_" << hour << ".log";
+			s << file_prefix << "_" << yyyymmdd << ".log";
 			filename = s.str();
 
 			if(log_file_w != NULL)
@@ -47,28 +50,46 @@ class MyLogger
 			log_file_w = fopen(filename.c_str(), "wa");	
 		}
 		
+		fprintf(log_file_w, "%s\n", log_value);
+		pthread_mutex_unlock( &log_mutex );
+		
 	}
 
 	MyLogger(string prefix) 
 	{
+
+		stringstream s;
+
 		file_prefix = prefix;
 		time_t tmNow = time(NULL);
 		struct tm *tmT;
-		tmT = localtime(&time);
-		hour = tmT->tm_hour;
+		tmT = localtime(&tmNow);
 
-		stringstream s;
-		s << file_prefix << "_" << hour << ".log";
+		s << tmT->tm_year << tmT->tm_mday << tmT->tm_mday << tmT->tm_hour;
+		yyyymmdd = s.str();
+		s.str();
+		
+		s << file_prefix << "_" << yyyymmdd << ".log";
+
 		filename = s.str();
 		log_file_w = fopen(filename.c_str(), "wa");
 
-		log_mutex = PTHREAD_MUTEX_INITIALIZER;
-		
+		pthread_mutex_init(&log_mutex, NULL);	
 	}
 
 	~MyLogger()
 	{
-		fclose(log_file_w);
+		if(log_file_w != NULL)
+		{
+			fclose(log_file_w);
+		}
 	}
 };
 
+
+int main(int argc, char*argv[])                                                                                                                               
+{       
+        MyLogger logger = MyLogger("../log/mylogger_test");
+        logger.log("this is a test log.........");
+	return 0;
+}
