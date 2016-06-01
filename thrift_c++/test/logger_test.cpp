@@ -31,9 +31,9 @@ public:
 		tmT = localtime(&tmNow);
 
 		stringstream s;
-		s << tmT->tm_year << tmT->tm_mday << tmT->tm_mday << tmT->tm_hour;
+		s << tmT->tm_year + 1990 << tmT->tm_mday + 1 << tmT->tm_mday << tmT->tm_hour;
 		string now_date = s.str();
-		s.str();
+		s.str("");
 	
 		if(now_date != yyyymmdd)
 		//we are arriving an new hour
@@ -66,14 +66,19 @@ public:
 		struct tm *tmT;
 		tmT = localtime(&tmNow);
 
-		s << tmT->tm_year << tmT->tm_mday << tmT->tm_mday << tmT->tm_hour;
+		s << tmT->tm_year + 1990 << tmT->tm_mon + 1 << tmT->tm_mday << 1 + tmT->tm_hour;
 		yyyymmdd = s.str();
-		s.str();
+		s.str("");
 		
 		s << file_prefix << "_" << yyyymmdd << ".log";
 
 		filename = s.str();
+		cout << filename << endl;
 		log_file_w = fopen(filename.c_str(), "wa");
+		if(log_file_w == NULL) 
+		{
+			cout << "can't open log file " << filename << endl;
+		}
 
 		pthread_mutex_init(&log_mutex, NULL);	
 	}
@@ -91,6 +96,6 @@ public:
 int main(int argc, char*argv[])                                                                                                                               
 {       
         MyLogger logger = MyLogger("../log/mylogger_test");
-        logger.log("this is a test log.........");
+        //logger.log("this is a test log.........");
 	return 0;
 }
