@@ -24,6 +24,8 @@ public:
 	
 	void log(const char* log_value)
 	{
+		pthread_mutex_lock( &log_mutex );
+
 		time_t tmNow = time(NULL);
 		struct tm *tmT;
 		tmT = localtime(&tmNow);
@@ -33,7 +35,6 @@ public:
 		string now_date = s.str();
 		s.str();
 	
-		pthread_mutex_lock( &log_mutex );
 		if(now_date != yyyymmdd)
 		//we are arriving an new hour
 		{
