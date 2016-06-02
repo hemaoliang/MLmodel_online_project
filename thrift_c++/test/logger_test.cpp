@@ -7,6 +7,7 @@
 
 #include <iostream> 
 #include <pthread.h>
+#include <unistd.h>
 
 using namespace std;
 
@@ -31,7 +32,7 @@ public:
 		tmT = localtime(&tmNow);
 
 		stringstream s;
-		s << tmT->tm_year + 1990 << tmT->tm_mday + 1 << tmT->tm_mday << tmT->tm_hour;
+		s << tmT->tm_year + 1990 << "-" << tmT->tm_mon + 1 << "-" << tmT->tm_mday << "-" << tmT->tm_hour;
 		string now_date = s.str();
 		s.str("");
 	
@@ -51,7 +52,8 @@ public:
 			log_file_w = fopen(filename.c_str(), "wa");	
 		}
 		
-		fprintf(log_file_w, "%s\n", log_value);
+		fprintf(log_file_w, "%d-%d-%d %d:%d:%d : %s\n", tmT->tm_year + 1990, tmT->tm_mon + 1, tmT->tm_mday,
+				tmT->tm_hour, tmT->tm_min, tmT->tm_sec, log_value);
 		pthread_mutex_unlock( &log_mutex );
 		
 	}
@@ -66,14 +68,14 @@ public:
 		struct tm *tmT;
 		tmT = localtime(&tmNow);
 
-		s << tmT->tm_year + 1990 << tmT->tm_mon + 1 << tmT->tm_mday << 1 + tmT->tm_hour;
+		s << tmT->tm_year + 1990 << "-" << tmT->tm_mon + 1 << "-" << tmT->tm_mday << "-" << tmT->tm_hour;
 		yyyymmdd = s.str();
 		s.str("");
 		
 		s << file_prefix << "_" << yyyymmdd << ".log";
 
 		filename = s.str();
-		cout << filename << endl;
+		//cout << filename << endl;
 		log_file_w = fopen(filename.c_str(), "wa");
 		if(log_file_w == NULL) 
 		{
@@ -92,10 +94,46 @@ public:
 	}
 };
 
+MyLogger logger = MyLogger("../log/mylogger_test");
+
+void* log_thread(void* ptr)
+{
+	pthread_t tid = pthread_self();
+	for(int i=0; i<10000;i++)
+	{
+	char *message;
+	message = (char *) ptr;
+	logger.log(message);
+	sleep(1);
+	}
+}
 
 int main(int argc, char*argv[])                                                                                                                               
 {       
-        MyLogger logger = MyLogger("../log/mylogger_test");
-        //logger.log("this is a test log.........");
+	//logger.log("this is a test log.........");
+
+	pthread_t ntids[5];	
+
+	char buff[5][100];
+	for(int i=0; i<5; i++)
+	{		
+		snprintf(buff[i], sizeof(buff[i]), "this is log from thread-%d", i);
+		int iret;
+		iret = pthread_create(&ntids[i],NULL,log_thread, (void *)buff[i]);
+		if(iret)
+		{
+			fprintf(stderr,"Error - pthread_create() return code: %d\n",iret);
+			exit(EXIT_FAILURE);
+		}
+		cout << "create thead-" << buff[i] << endl;
+	}
+
+	for(int i=0; i<5; i++)
+	{
+		pthread_join( ntids[i], NULL );
+	} 
+
 	return 0;
 }
+
+
