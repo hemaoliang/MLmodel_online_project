@@ -1,5 +1,5 @@
 #当前工程的名称
-PROJECT(thrift_c++)
+PROJECT(caffe_online_thrift_c++)
 CMAKE_MINIMUM_REQUIRED(VERSION 0.9.3)
 
 #将当前目录中的源文件名称赋值给变量 DIR_SRCS
@@ -30,6 +30,8 @@ include_directories("${PROJECT_SOURCE_DIR}/include")
 include_directories("${PROJECT_SOURCE_DIR}/test")
 include_directories("${CMAKE_CURRENT_BINARY_DIR}/src/gen-cpp")
 
+#thrift 和 caffe 的源代码目录
+include_directories("/home/spongebob/deeplearning/caffe-master/include")
 include_directories("/home/spongebob/software/thrift-0.9.3")
 
 #指定依赖的第三方库 相当于gcc的 -I
@@ -39,6 +41,7 @@ include_directories("/usr/local/include/libxml2")
 
 #link_directories：动态链接库或静态链接库的搜索路径，相当于gcc的-L参数
 link_directories("${PROJECT_SOURCE_DIR}/lib")
+link_directories("/home/spongebob/deeplearning/caffe-master/build/lib")
 
 #Contains the thrift specific ADD_LIBRARY_THRIFT and TARGET_LINK_LIBRARIES_THRIFT
 include("/home/spongebob/software/thrift-0.9.3/build/cmake/ThriftMacros.cmake")
