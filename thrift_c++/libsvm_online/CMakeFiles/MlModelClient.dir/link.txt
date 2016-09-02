@@ -1,1 +1,1 @@
-g++   -fPIC    CMakeFiles/MlModelClient.dir/src/MlModelClient.o  -o bin/MlModelClient  -L/home/spongebob/MLmodel_online_project/thrift_c++/lib -rdynamic lib/libmlmodel.a -lthrift lib/libgencpp.a -Wl,-rpath,/home/spongebob/MLmodel_online_project/thrift_c++/lib 
+g++   -fPIC    CMakeFiles/MlModelClient.dir/src/MlModelClient.o  -o bin/MlModelClient  -L/home/spongebob/MLmodel_online_project/thrift_c++/libsvm_online/lib -rdynamic lib/libmlmodel.a -lthrift lib/libgencpp.a -Wl,-rpath,/home/spongebob/MLmodel_online_project/thrift_c++/libsvm_online/lib 

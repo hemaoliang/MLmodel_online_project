@@ -4,14 +4,14 @@ SET(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 SET(CMAKE_DEPENDS_CHECK_CXX
-  "/home/spongebob/MLmodel_online_project/thrift_c++/src/MlModelClient.cpp" "/home/spongebob/MLmodel_online_project/thrift_c++/CMakeFiles/MlModelClient.dir/src/MlModelClient.o"
+  "/home/spongebob/MLmodel_online_project/thrift_c++/libsvm_online/src/MlModelClient.cpp" "/home/spongebob/MLmodel_online_project/thrift_c++/libsvm_online/CMakeFiles/MlModelClient.dir/src/MlModelClient.o"
   )
 SET(CMAKE_CXX_COMPILER_ID "GNU")
 
 # Targets to which this target links.
 SET(CMAKE_TARGET_LINKED_INFO_FILES
-  "/home/spongebob/MLmodel_online_project/thrift_c++/CMakeFiles/mlmodel.dir/DependInfo.cmake"
-  "/home/spongebob/MLmodel_online_project/thrift_c++/CMakeFiles/gencpp.dir/DependInfo.cmake"
+  "/home/spongebob/MLmodel_online_project/thrift_c++/libsvm_online/CMakeFiles/mlmodel.dir/DependInfo.cmake"
+  "/home/spongebob/MLmodel_online_project/thrift_c++/libsvm_online/CMakeFiles/gencpp.dir/DependInfo.cmake"
   )
 
 # The include file search paths:

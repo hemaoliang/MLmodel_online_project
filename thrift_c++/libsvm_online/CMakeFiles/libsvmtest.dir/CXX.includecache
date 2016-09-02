@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/spongebob/MLmodel_online_project/thrift_c++/test/libsvm_test.cpp
+/home/spongebob/MLmodel_online_project/thrift_c++/libsvm_online/test/libsvm_test.cpp
 stdio.h
 -
 ctype.h
@@ -18,11 +18,11 @@ string.h
 errno.h
 -
 svm.h
-/home/spongebob/MLmodel_online_project/thrift_c++/test/svm.h
+/home/spongebob/MLmodel_online_project/thrift_c++/libsvm_online/test/svm.h
 eval.h
-/home/spongebob/MLmodel_online_project/thrift_c++/test/eval.h
+/home/spongebob/MLmodel_online_project/thrift_c++/libsvm_online/test/eval.h
 mlmodel.h
-/home/spongebob/MLmodel_online_project/thrift_c++/test/mlmodel.h
+/home/spongebob/MLmodel_online_project/thrift_c++/libsvm_online/test/mlmodel.h
 
 include/mlmodel.h
 math.h

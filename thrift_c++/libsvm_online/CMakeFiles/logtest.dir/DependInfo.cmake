@@ -4,7 +4,7 @@ SET(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 SET(CMAKE_DEPENDS_CHECK_CXX
-  "/home/spongebob/MLmodel_online_project/thrift_c++/test/logger_test.cpp" "/home/spongebob/MLmodel_online_project/thrift_c++/CMakeFiles/logtest.dir/test/logger_test.o"
+  "/home/spongebob/MLmodel_online_project/thrift_c++/libsvm_online/test/logger_test.cpp" "/home/spongebob/MLmodel_online_project/thrift_c++/libsvm_online/CMakeFiles/logtest.dir/test/logger_test.o"
   )
 SET(CMAKE_CXX_COMPILER_ID "GNU")
 
