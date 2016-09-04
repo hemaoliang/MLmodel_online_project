@@ -1,0 +1,25 @@
+#include <cuda_runtime.h>
+
+#include <cstring>
+#include <cstdlib>
+#include <vector>
+
+#include <string>
+#include <iostream>
+#include <stdio.h>
+#include "caffe/caffe.hpp"
+#include "caffe/util/io.hpp"
+#include "caffe/blob.hpp"
+
+class Caffe_Model {
+public:
+	
+	Caffe_Model(const string model_file_name);
+	~Caffe_Model();
+		
+	double predict(char* pic_name, double *prob_estimates);	
+
+private:
+	caffe::Net<float> caffe_test_net;
+
+};
