@@ -32,6 +32,8 @@ include_directories("${CMAKE_CURRENT_BINARY_DIR}/src/gen-cpp")
 
 #thrift 和 caffe 的源代码目录
 include_directories("/home/spongebob/deeplearning/caffe-master/include")
+include_directories("/home/spongebob/MLmodel_online_project/thrift_c++/caffe_online/include")
+include_directories("/home/spongebob/deeplearning/caffe-master/build/src")
 include_directories("/home/spongebob/software/thrift-0.9.3")
 
 #指定依赖的第三方库 相当于gcc的 -I

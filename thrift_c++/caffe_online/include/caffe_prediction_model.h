@@ -14,12 +14,14 @@
 class Caffe_Model {
 public:
 	
-	Caffe_Model(const string model_file_name);
+	Caffe_Model(const std::string model_file_name, const std::string weight_file_name);
 	~Caffe_Model();
 		
-	double predict(char* pic_name, double *prob_estimates);	
+	double predict(char* pic_name, double *prob_estimates);
+
+	std::string name();	
 
 private:
-	caffe::Net<float> caffe_test_net;
+	caffe::Net<float>* caffe_test_net;
 
 };
