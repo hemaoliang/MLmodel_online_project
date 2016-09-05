@@ -4,7 +4,10 @@ using namespace caffe;
 using namespace std;
 
 
-Caffe_Model::Caffe_Model(const string model_file_name, const std::string weight_file_name) {
+Caffe_Model::Caffe_Model(const string model_file_name, 
+	const std::string weight_file_name, int height, int width):resize_height(height),
+	resize_width(width) 
+{
 	Caffe::set_mode(Caffe::CPU);
 	caffe_test_net = new caffe::Net<float>(model_file_name, caffe::TEST);
 	caffe_test_net->CopyTrainedLayersFrom(weight_file_name);
@@ -34,7 +37,7 @@ int main( int argc, char** argv )
 		return -1;
 	}
 
-	Caffe_Model caffe_model(argv[1], argv[2]);
+	Caffe_Model caffe_model(argv[1], argv[2], 227, 227);
 	printf("caffe net: %s \n", caffe_model.name().c_str() ); 
 
 }

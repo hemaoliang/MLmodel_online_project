@@ -14,7 +14,7 @@
 class Caffe_Model {
 public:
 	
-	Caffe_Model(const std::string model_file_name, const std::string weight_file_name);
+	Caffe_Model(const std::string model_file_name, const std::string weight_file_name, int height, int width);
 	~Caffe_Model();
 		
 	double predict(char* pic_name, double *prob_estimates);
@@ -23,5 +23,7 @@ public:
 
 private:
 	caffe::Net<float>* caffe_test_net;
+	int resize_height;
+	int resize_width;
 
 };
