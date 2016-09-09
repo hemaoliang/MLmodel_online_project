@@ -19,7 +19,10 @@ public:
 		
 	double predict(char* pic_name, double *prob_estimates);
 
-	std::string name();	
+	std::string name();
+	
+	int get_height();
+	int get_width();	
 
 private:
 	caffe::Net<float>* caffe_test_net;
