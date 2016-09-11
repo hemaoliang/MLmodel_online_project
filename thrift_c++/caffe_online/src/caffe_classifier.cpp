@@ -1,10 +1,10 @@
-#include "caffe_classifier.h"
+#include "caffe_classifier.hpp"
 using namespace caffe;
-
 
 Classifier::Classifier(const string& model_file,
                        const string& trained_file,
-                       const string& mean_file) 
+                       const string& mean_file,
+		       const string& label_file) 
 {
 	Caffe::set_mode(Caffe::CPU);
 	/* Load the network. */
@@ -20,10 +20,21 @@ Classifier::Classifier(const string& model_file,
 	CHECK(num_channels_ == 3 || num_channels_ == 1)
 		<< "Input layer should have 1 or 3 channels.";
 	input_geometry_ = cv::Size(input_layer->width(), input_layer->height());
-
 	
+	/* Load the binaryproto mean file. */
+	SetMean(mean_file);
+	
+	/* Load labels. */
+	std::ifstream labels(label_file.c_str());
+ 	CHECK(labels) << "Unable to open labels file " << label_file;
+	string line;
+	while (std::getline(labels, line))
+ 	labels_.push_back(string(line));
 
-
+	Blob<float>* output_layer = net_->output_blobs()[0];
+	CHECK_EQ(labels_.size(), output_layer->channels())
+		<< "Number of labels is different from the output layer dimension.";
+		
 }
 
 static bool PairCompare(const std::pair<float, int>& lhs,
@@ -37,13 +48,20 @@ static std::vector<int> Argmax(const std::vector<float>& v, int N)
 {
 	std::vector<std::pair<float, int> > pairs;
 	for (size_t i = 0; i < v.size(); ++i)
-	pairs.push_back(std::make_pair(v[i], i));
+		pairs.push_back(std::make_pair(v[i], i));
 	std::partial_sort(pairs.begin(), pairs.begin() + N, pairs.end(), PairCompare);
 
 	std::vector<int> result;
 	for (int i = 0; i < N; ++i)
 		result.push_back(pairs[i].second);
 	return result;
+}
+
+std::vector<Prediction> Classifier::Classify_file(const string& img_file)
+{
+	cv::Mat img = cv::imread(img_file, -1);
+	CHECK(!img.empty()) << "Unable to decode image " << img_file;
+	return Classify(img);
 }
 
 /* Return the top N predictions. */
@@ -171,4 +189,43 @@ void Classifier::Preprocess(const cv::Mat& img,
 	CHECK(reinterpret_cast<float*>(input_channels->at(0).data)
 		== net_->input_blobs()[0]->cpu_data())
 		<< "Input channels are not wrapping the input layer of the network.";
+}
+
+int main(int argc, char** argv) {
+  if (argc != 6) {
+    std::cerr << "Usage: " << argv[0]
+              << " deploy.prototxt network.caffemodel"
+              << " mean.binaryproto  labels.txt img.jpg" << std::endl;
+    return 1;
+  }
+
+  ::google::InitGoogleLogging(argv[0]);
+
+  string model_file   = argv[1];
+  string trained_file = argv[2];
+  string mean_file    = argv[3];
+  string label_file   = argv[4];
+
+  for(int j=0; j<10000; j++) { 
+
+  Classifier classifier(model_file, trained_file, mean_file, label_file);
+
+  string file = argv[5];
+
+  std::cout << "---------- Prediction for "
+            << file << " ----------" << std::endl;
+
+  //cv::Mat img = cv::imread(file, -1);
+  //CHECK(!img.empty()) << "Unable to decode image " << file;
+  std::vector<Prediction> predictions = classifier.Classify_file(file);
+
+  /* Print the top N predictions. */
+  for (size_t i = 0; i < predictions.size(); ++i) {
+    Prediction p = predictions[i];
+    std::cout << std::fixed << std::setprecision(4) << p.second << " - \""
+              << p.first << "\"" << std::endl;
+  }
+  std::cout << j << std::endl;
+
+  }
 }
