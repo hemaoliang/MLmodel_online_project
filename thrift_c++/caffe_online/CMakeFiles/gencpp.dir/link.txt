@@ -1,0 +1,2 @@
+/usr/bin/ar cr lib/libgencpp.a  CMakeFiles/gencpp.dir/gen-cpp/caffe_server_constants.o CMakeFiles/gencpp.dir/gen-cpp/caffe_server_types.o CMakeFiles/gencpp.dir/gen-cpp/CaffeService.o
+/usr/bin/ranlib lib/libgencpp.a

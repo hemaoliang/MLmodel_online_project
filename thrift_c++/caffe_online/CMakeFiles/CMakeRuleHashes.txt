@@ -1,0 +1,2 @@
+# Hashes of file build rules.
+8d91f9f3e3134d5584531de008b61759 gen-cpp/caffe_server_constants.cpp

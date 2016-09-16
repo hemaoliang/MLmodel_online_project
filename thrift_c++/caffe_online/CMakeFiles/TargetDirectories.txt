@@ -1,0 +1,4 @@
+/home/spongebob/MLmodel_online_project/thrift_c++/caffe_online/CMakeFiles/CaffeClient.dir
+/home/spongebob/MLmodel_online_project/thrift_c++/caffe_online/CMakeFiles/CaffeServer.dir
+/home/spongebob/MLmodel_online_project/thrift_c++/caffe_online/CMakeFiles/caffemodel.dir
+/home/spongebob/MLmodel_online_project/thrift_c++/caffe_online/CMakeFiles/gencpp.dir
