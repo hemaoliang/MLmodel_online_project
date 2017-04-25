@@ -1,6 +1,6 @@
 '''
  * @file xgboost_train.py
- * @author tracyhe(tracyhe@tencent.com)
+ * @author
  * @date 2015/03/31 15:38:12
  * @brief 
  *  
